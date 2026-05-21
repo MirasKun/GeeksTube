@@ -1,5 +1,3 @@
-import React from "react";
-
 const Sidebar = () => {
   return (
     <aside className="w-60 h-screen bg-[#0f0f0f] text-white flex flex-col px-3 py-4 font-sans select-none overflow-y-auto">
