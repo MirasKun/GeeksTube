@@ -1,10 +1,12 @@
 import React from "react";
 import YouTubeHeader from "../components/YouTubeHeader";
+import Sidebar from "../components/Sidebar";
 
 const App = () => {
   return (
     <div>
       <YouTubeHeader/>
+      <Sidebar/>
     </div>
   )
 };

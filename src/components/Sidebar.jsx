@@ -2,7 +2,7 @@ import React from "react";
 
 const Sidebar = () => {
   return (
-    <aside className="w-[240px] h-screen bg-[#0f0f0f] text-white flex flex-col px-3 py-4 font-sans select-none overflow-y-auto">
+    <aside className="w-60 h-screen bg-[#0f0f0f] text-white flex flex-col px-3 py-4 font-sans select-none overflow-y-auto">
       <div className="flex flex-col gap-1 mb-4">
         <button className="flex items-center gap-5 w-full px-4 py-2.5 rounded-xl bg-white/10 text-white font-medium text-sm transition-colors">
           <span className="w-5 h-5 flex items-center justify-center shrink-0">
