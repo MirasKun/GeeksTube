@@ -22,14 +22,14 @@ const AuthModal = ({ isOpen, onClose }) => {
     setAuthLoading(true);
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
-      message.success("Вы успешно вошли!");
+      message.success("Вы успешно вошли");
       onClose();
     } catch (error) {
       if (
         error.code === "auth/invalid-credential" ||
         error.code === "auth/user-not-found"
       ) {
-        message.error("Неверный email или пароль!");
+        message.error("Неверный email или пароль");
       } else {
         message.error(`Ошибка входа: ${error.code}`);
       }
@@ -42,11 +42,11 @@ const AuthModal = ({ isOpen, onClose }) => {
     setAuthLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, values.email, values.password);
-      message.success("Аккаунт успешно создан!");
+      message.success("Аккаунт успешно создан");
       onClose();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        message.error("Этот email уже зарегистрирован!");
+        message.error("Этот email уже зарегистрирован");
       } else {
         message.error(`Ошибка регистрации: ${error.code}`);
       }
@@ -68,7 +68,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               {
                 required: true,
                 type: "email",
-                message: "Введите корректный email!",
+                message: "Введите корректный email",
               },
             ]}
           >
@@ -77,7 +77,7 @@ const AuthModal = ({ isOpen, onClose }) => {
           <Form.Item
             label="Пароль"
             name="password"
-            rules={[{ required: true, min: 6, message: "Минимум 6 символов!" }]}
+            rules={[{ required: true, min: 6, message: "Минимум 6 символов" }]}
           >
             <Input.Password placeholder="Пароль" size="large" />
           </Form.Item>
@@ -105,7 +105,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               {
                 required: true,
                 type: "email",
-                message: "Введите корректный email!",
+                message: "Введите корректный email",
               },
             ]}
           >
@@ -114,7 +114,7 @@ const AuthModal = ({ isOpen, onClose }) => {
           <Form.Item
             label="Пароль"
             name="password"
-            rules={[{ required: true, min: 6, message: "Минимум 6 символов!" }]}
+            rules={[{ required: true, min: 6, message: "Минимум 6 символов" }]}
           >
             <Input.Password placeholder="Придумайте пароль" size="large" />
           </Form.Item>
@@ -137,7 +137,7 @@ const AuthModal = ({ isOpen, onClose }) => {
       theme={{
         algorithm: theme.darkAlgorithm,
         token: {
-          colorPrimary: "#3b82f6",
+          colorPrimary: "#FF0033",
           colorBgBase: "#0f0f0f",
           colorBgContainer: "#1f1f1f",
           colorBorder: "#303030",
@@ -160,7 +160,7 @@ const AuthModal = ({ isOpen, onClose }) => {
         open={isOpen}
         onCancel={onClose}
         footer={null}
-        destroyOnClose
+        destroyOnHidden
         centered
         width={440}
         styles={{ body: { padding: 0 } }}
