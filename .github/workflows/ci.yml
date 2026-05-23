@@ -2,7 +2,7 @@ name: Check Ready
 
 on:
   push:
-    branches: [dev, main]
+    branches: ["main", "dev", "Erjan", "Muhammed", "Almir", "Miras", "Nurbai", "dony"]
   pull_request:
     branches: [dev, main]
 
