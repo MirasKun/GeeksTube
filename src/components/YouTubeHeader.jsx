@@ -37,14 +37,14 @@ const YouTubeHeader = () => {
     try {
       await signOut(auth);
       message.success("Вы успешно вышли из аккаунта (через ПКМ)");
-    } catch  {
+    } catch {
       message.error("Не удалось выйти");
     }
   };
 
   return (
     <>
-      <div className="w-full h-screen bg-black">
+      <div className="w-full h-20.25 bg-[#0F0F0F]">
         <header className="flex-col items-center">
           <div className="flex items-center justify-between px-4 h-14">
             {}
