@@ -4,8 +4,8 @@ import "../app/styles/App.css";
 const YouTubeHeader = () => {
   return (
     <>
-      <div className="w-full h-screen bg-black">
-        <header className="flex-col items-center">
+      <div className="w-full h-20.25 bg-black">
+        <header className="flex-col items-center bg-black ">
           <div className="flex items-center justify-between px-4 h-14">
             <div className="flex items-center gap-4">
               <button className="p-2 rounded-full hover:bg-gray-700">
@@ -55,7 +55,7 @@ const YouTubeHeader = () => {
             </div>
           </div>
           {/* Навигация */}
-          <div className="flex">
+          <div className="flex items-center">
             <div className="flex">
               <div className="flex px-4 py-2 gap-3">
                 <button className="px-3 py-1 rounded-lg bg-white text-black hover:bg-gray-200">
