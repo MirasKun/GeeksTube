@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, message } from "antd";
 import { onAuthStateChanged } from "firebase/auth";
@@ -12,6 +12,9 @@ const YouTubeHeader = ({ toggleSidebar }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("Все");
+
+  const filters = ["Все", "Музыка", "Новое для вас"];
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -21,18 +24,24 @@ const YouTubeHeader = ({ toggleSidebar }) => {
     return () => unsubscribe();
   }, []);
 
-  const handleLeftClick = () => {
+  const handleLeftClick = useCallback(() => {
     message.info({
       content: "Это вы",
       duration: 2,
       style: { marginTop: "10px" },
     });
-  };
+  }, []);
 
-  const handleRightClick = (e) => {
-    e.preventDefault();
-    dispatch(logoutUserTC());
-  };
+  const handleRightClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(logoutUserTC());
+    },
+    [dispatch],
+  );
+
+  const handleOpenModal = useCallback(() => setIsModalOpen(true), []);
+  const handleCloseModal = useCallback(() => setIsModalOpen(false), []);
 
   return (
     <>
@@ -102,7 +111,7 @@ const YouTubeHeader = ({ toggleSidebar }) => {
               ) : (
                 <Button
                   type="primary"
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={handleOpenModal}
                   style={{ backgroundColor: "#FF0033" }}
                   className="border-none rounded-full h-8 font-medium px-4 hover:!bg-[#E0002D]"
                 >
@@ -114,21 +123,25 @@ const YouTubeHeader = ({ toggleSidebar }) => {
 
           <div className="flex">
             <div className="flex px-4 py-2 gap-3">
-              <button className="px-3 py-1 rounded-lg bg-white text-black hover:bg-gray-200">
-                Все
-              </button>
-              <button className="px-3 py-1 rounded-lg bg-gray-700 text-white hover:bg-gray-600">
-                Музыка
-              </button>
-              <button className="px-3 py-1 rounded-lg bg-gray-700 text-white hover:bg-gray-600">
-                Новое для вас
-              </button>
+              {filters.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-3 py-1 rounded-lg transition-colors ${
+                    activeFilter === filter
+                      ? "bg-white text-black"
+                      : "bg-gray-700 text-white hover:bg-gray-600"
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
             </div>
           </div>
         </header>
       </div>
 
-      <AuthModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <AuthModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </>
   );
 };

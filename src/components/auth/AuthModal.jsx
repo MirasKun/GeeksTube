@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from "react";
 import { Modal, Tabs, Form, ConfigProvider, theme } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserTC, registerUserTC } from "../../store/thunks/auth";
@@ -9,55 +10,64 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [registerForm] = Form.useForm();
   const { loading: authLoading } = useSelector((state) => state.authSlice);
 
-  const handleLogin = (values) => {
-    dispatch(loginUserTC(values)).then((result) => {
-      if (!result.error) {
-        loginForm.resetFields();
-        onClose();
-      }
-    });
-  };
+  const handleLogin = useCallback(
+    (values) => {
+      dispatch(loginUserTC(values)).then((result) => {
+        if (!result.error) {
+          loginForm.resetFields();
+          onClose();
+        }
+      });
+    },
+    [dispatch, loginForm, onClose],
+  );
 
-  const handleRegister = (values) => {
-    dispatch(registerUserTC(values)).then((result) => {
-      if (!result.error) {
-        registerForm.resetFields();
-        onClose();
-      }
-    });
-  };
+  const handleRegister = useCallback(
+    (values) => {
+      dispatch(registerUserTC(values)).then((result) => {
+        if (!result.error) {
+          registerForm.resetFields();
+          onClose();
+        }
+      });
+    },
+    [dispatch, registerForm, onClose],
+  );
 
-  const handleTabChange = () => {
+  const handleTabChange = useCallback(() => {
     loginForm.resetFields();
     registerForm.resetFields();
-  };
+  }, [loginForm, registerForm]);
 
-  const tabItems = [
-    {
-      key: "login",
-      label: "Вход",
-      children: (
-        <AuthForm
-          form={loginForm}
-          onFinish={handleLogin}
-          authLoading={authLoading}
-          isRegister={false}
-        />
-      ),
-    },
-    {
-      key: "register",
-      label: "Регистрация",
-      children: (
-        <AuthForm
-          form={registerForm}
-          onFinish={handleRegister}
-          authLoading={authLoading}
-          isRegister={true}
-        />
-      ),
-    },
-  ];
+  const tabItems = useMemo(
+    () => [
+      {
+        key: "login",
+        label: "Вход",
+        children: (
+          <AuthForm
+            form={loginForm}
+            onFinish={handleLogin}
+            authLoading={authLoading}
+            isRegister={false}
+          />
+        ),
+      },
+      {
+        key: "register",
+        label: "Регистрация",
+        children: (
+          <AuthForm
+            form={registerForm}
+            onFinish={handleRegister}
+            authLoading={authLoading}
+            isRegister={true}
+          />
+        ),
+      },
+    ],
+    [loginForm, registerForm, handleLogin, handleRegister, authLoading],
+  );
 
   return (
     <ConfigProvider
