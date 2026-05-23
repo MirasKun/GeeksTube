@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import VideoCard from './VideoCard'
 import { useEffect } from 'react';
-import { fetchRecomendedVideosTC } from '../store/thunks/fetchRecomended';
+import { fetchRecomendedVideosTC } from '../../store/thunks/fetchRecomended';
 
 const VideoGrid = () => {
    const dispatch = useDispatch();
