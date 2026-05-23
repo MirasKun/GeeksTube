@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecomendedVideosTC } from "../store/thunks/fetchRecomended";
-import YouTubeHeader from "../components/YouTubeHeader";
-import Sidebar from "../components/Sidebar";
-import VideoGrid from "../components/VideoGrid";
+import VideoGrid from "../components/videos/VideoGrid";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -13,7 +11,7 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(fetchRecomendedVideosTC());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
