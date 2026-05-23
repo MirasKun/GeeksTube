@@ -41,7 +41,6 @@ const AccordionItem = ({
         <img
           src={arrowSrc}
           alt="Arrow"
-          className="w-full h-full object-contain"
         />
       </span>
     </button>
