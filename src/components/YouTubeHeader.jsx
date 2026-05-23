@@ -30,7 +30,7 @@ const YouTubeHeader = ({ toggleSidebar }) => {
     e.preventDefault();
     try {
       await signOut(auth);
-      message.success("Вы вышли из аккаунта (через ПКМ)");
+      message.success("Вы успешно вышли из аккаунта (через ПКМ)");
     } catch {
       message.error("Не удалось выйти");
     }
@@ -38,30 +38,27 @@ const YouTubeHeader = ({ toggleSidebar }) => {
 
   return (
     <>
-      {}
-      <header className="w-full flex-col items-center bg-black">
-        <div className="flex items-center justify-between px-4 h-14">
-          <div className="flex items-center gap-4">
+      <div className="w-full h-20.25 bg-[#0F0F0F]">
+        <header className="flex-col items-center">
+          <div className="flex items-center justify-between px-4 h-14">
             {}
-            <button
-              onClick={toggleSidebar}
-              className="p-2 rounded-full hover:bg-gray-700 transition-colors"
-            >
-              <img
-                src="/header/BurgerMenu.svg"
-                alt="Burger Menu"
-                className="w-6 h-6"
-              />
-            </button>
-            <div className="flex items-center gap-1">
-              <img
-                src="/header/YouTube.svg"
-                alt="YouTube"
-                className="w-8 h-8"
-              />
-              <h1 className="text-white text-xl font-semibold">YouTube</h1>
+            <div className="flex items-center gap-4">
+              <button onClick={toggleSidebar} className="p-2 rounded-full hover:bg-gray-700">
+                <img
+                  src="/header/BurgerMenu.svg"
+                  alt="Burger Menu"
+                  className="w-6 h-6"
+                />
+              </button>
+              <div className="flex items-center gap-1">
+                <img
+                  src="/header/YouTube.svg"
+                  alt="YouTube"
+                  className="w-8 h-8"
+                />
+                <h1 className="text-white text-xl font-semibold">YouTube</h1>
+              </div>
             </div>
-          </div>
 
           <div className="flex items-center w-150">
             <div className="flex items-center w-full border border-gray-600 rounded-full px-4 h-10 gap-1.5">
@@ -128,6 +125,7 @@ const YouTubeHeader = ({ toggleSidebar }) => {
           </div>
         </div>
       </header>
+      </div>
 
       <AuthModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
