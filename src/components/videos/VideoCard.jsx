@@ -1,6 +1,3 @@
-
-
-
 const VideoCard = ({ video }) => {
   const { snippet, statistics } = video;
   const thumbnail = snippet.thumbnails.medium.url;
