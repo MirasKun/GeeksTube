@@ -1,22 +1,23 @@
-import { Routes, Route } from "react-router-dom";
-import Layout from "../components/Layout";
-import Home from "../pages/Home";
-import Watch from "../pages/Watch";
-import SearchResults from "../pages/SearchResults";
-import Login from "../pages/Login";
-import Profile from "../pages/Profile";
+import { useState } from "react";
+import YouTubeHeader from "../components/YouTubeHeader";
+import Sidebar from "../components/Sidebar";
+import HomePage from "../pages/HomePage";
 
 const App = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/watch/:id" element={<Watch />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-      </Route>
-    </Routes>
+    <div className="flex flex-col h-screen bg-black overflow-hidden font-sans">
+      <YouTubeHeader toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar isOpen={isSidebarOpen} />
+
+        <main className="flex-1 overflow-y-auto text-white p-4">
+          <HomePage/>
+        </main>
+      </div>
+    </div>
   );
 };
 

@@ -1,16 +1,75 @@
-# React + Vite
+# GeeksTube (YouTube Clone)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Учебный командный веб-проект** - упрощенный клон YouTube, созданный для закрепления навыков командной разработки, работы с внешними API, авторизацией и современным стейт-менеджментом.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Цель проекта
 
-## React Compiler
+Создать отзывчивое веб-приложение на React, имитирующее ключевой функционал YouTube: просмотр популярных видео, гибкий поиск, кастомные страницы каналов и воспроизведение контента через встроенный плеер.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Проект разработан с фокусом на безопасность данных, модульную архитектуру и оптимизацию запросов.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Технологический стек
+
+- **Frontend:** React (Vite)
+- **Стейт-менеджер:** Redux Toolkit (RTK)
+- **Маршрутизация:** React Router DOM
+- **Стилизация:** Tailwind CSS
+- **UI Компоненты:** Ant Design (antd)
+- **Бэкенд & Аутентификация:** Firebase Auth
+- **Запросы к API:** Axios + YouTube Data API v3
+
+---
+
+## Функционал проекта
+
+### Что мы делаем (Входит в MVP):
+
+- **Главная страница:** Динамическая лента популярных видео с возможностью фильтрации по категориям (тегам).
+- **Глобальный поиск:** Поиск видео по ключевым словам через поисковую строку в хедере.
+- **Страница просмотра:** Встроенный плеер для воспроизведения видео, отображение описания и секция комментариев.
+- **Страница канала:** Просмотр информации о канале и списка его видеороликов.
+- **Безопасная авторизация:** Полноценный вход и регистрация пользователей через **Firebase Auth** с использованием темных модальных окон _Ant Design_.
+- **Умный интерфейс:** Условный рендеринг элементов хедера (кнопка «Войти» меняется на динамическую аватарку пользователя при успешной авторизации).
+
+### Что мы НЕ делаем (Out of Scope):
+
+- Загрузка собственных видео на платформу.
+- Интерактивные лайки / дизлайки, отправка комментариев (визуализация без бэкенда).
+- Реальные подписки на каналы и колокольчик уведомлений.
+- Монетизация и творческая студия.
+
+---
+
+## Безопасность и Конфигурация (`.env`)
+
+В проекте реализована крытая конфигурация ключей API в соответствии с правилами веб-безопасности. Все секретные данные вынесены в переменные окружения и не попадают в систему контроля версий (Git).
+
+В корне проекта подготовлен шаблонный файл `.env.example`. Следуйте инструкциям внутри него.
+
+---
+
+## Наша команда
+
+- Участник 1 (Альмир) - Верстка основных страниц, разметка компонентов, интеграция Tailwind CSS.
+
+- Участник 2 (Нурбай) - Разработка страниц каналов, логика вывода контента, роутинг.
+
+- Участник 3 (Мирас) - Интеграция YouTube Data API v3, настройка Axios, стейт-менеджмент.
+
+- Участник 4 (Эржан) - Настройка Firebase Auth, разработка модулей авторизации/регистрации, внедрение Ant Design и конфигурация безопасности (.env).
+
+- Участник 5 (Мухаммед) - Разработка изолированных UI-компонентов (`VideoCard`, `CategoryButton`, `Avatar`, `IconButton`, `EmptyState`)
+## Локальный запуск
+
+Для запуска проекта локально:
+
+```bash
+git clone https://github.com/MirasKun/GeeksTube.git
+cd GeeksTube
+npm install
+npm run dev
+```
