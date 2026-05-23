@@ -10,7 +10,7 @@ import { message } from "antd";
 const isNetworkError = (error) =>
   error.code === "auth/network-request-failed" || !navigator.onLine;
 
-export const loginUser = createAsyncThunk(
+export const loginUserTC = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
@@ -44,7 +44,7 @@ export const loginUser = createAsyncThunk(
   },
 );
 
-export const registerUser = createAsyncThunk(
+export const registerUserTC = createAsyncThunk(
   "auth/registerUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
@@ -74,7 +74,7 @@ export const registerUser = createAsyncThunk(
   },
 );
 
-export const logoutUser = createAsyncThunk(
+export const logoutUserTC = createAsyncThunk(
   "auth/logoutUser",
   async (_, { rejectWithValue }) => {
     try {
