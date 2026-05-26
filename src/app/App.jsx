@@ -2,6 +2,8 @@ import { useState } from "react";
 import YouTubeHeader from "../components/header/YouTubeHeader";
 import Sidebar from "../components/sidebar/Sidebar";
 import HomePage from "../pages/HomePage";
+import { Route, Routes } from "react-router-dom";
+import Watch from "../pages/Watch"
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -14,7 +16,10 @@ const App = () => {
         <Sidebar isOpen={isSidebarOpen} />
 
         <main className="flex-1 overflow-y-auto text-white p-4">
-          <HomePage />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/watch/:videoId" element={<Watch />} />
+          </Routes>
         </main>
       </div>
     </div>
