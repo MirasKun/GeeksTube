@@ -3,7 +3,7 @@ import { instance } from "../../api/instance";
 
 export const fetchRecomendedVideosTC = createAsyncThunk(
   "thunk/fetchRecomendedVideos",
-  async (pageToken = "") => {
+  async (pageToken = "", { rejectWithValue }) => {
     try {
       const res = await instance.get("/videos", {
         params: {
@@ -16,8 +16,7 @@ export const fetchRecomendedVideosTC = createAsyncThunk(
       });
       return res.data;
     } catch (error) {
-      console.log(error);
-      return [];
+      return rejectWithValue(error.message);
     }
   },
 );

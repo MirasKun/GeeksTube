@@ -17,8 +17,16 @@ const recomendedSlice = createSlice({
     }),
       builder.addCase(fetchRecomendedVideosTC.fulfilled, (state, action) => {
         state.loading = false;
-        // state.items = [...state.items, ...action.payload.items];
-        state.videos = action.payload.items
+
+        const newVideos = action.payload.items || [];
+
+        const existingIds = new Set(state.videos.map((video) => video.id));
+
+        const uniqueVideos = newVideos.filter((video) => {
+          return !existingIds.has(video.id);
+        });
+
+        state.videos = [...state.videos, ...uniqueVideos];
         state.nextPageToken = action.payload.nextPageToken || "";
       }),
       builder.addCase(fetchRecomendedVideosTC.rejected, (state, action) => {
