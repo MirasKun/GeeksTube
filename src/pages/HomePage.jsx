@@ -12,11 +12,11 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(fetchRecomendedVideosTC());
   }, [dispatch]);
-
+  console.log(items, loading, error);
   return (
     <div>
       <div className="flex-1">
-       <VideoGrid/>
+        <VideoGrid />
       </div>
     </div>
   );
