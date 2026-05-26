@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchRecomendedVideosTC } from "../thunks/fetchRecomended";
 
 const initialState = {
-  items: [],
+  videos: [],
   nextPageToken: "",
   loading: false,
   error: null,
@@ -18,7 +18,7 @@ const recomendedSlice = createSlice({
       builder.addCase(fetchRecomendedVideosTC.fulfilled, (state, action) => {
         state.loading = false;
         // state.items = [...state.items, ...action.payload.items];
-        state.items = action.payload.items
+        state.videos = action.payload.items
         state.nextPageToken = action.payload.nextPageToken || "";
       }),
       builder.addCase(fetchRecomendedVideosTC.rejected, (state, action) => {

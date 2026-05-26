@@ -5,14 +5,14 @@ import VideoGrid from "../components/videos/VideoGrid";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { items, loading, error } = useSelector(
-    (state) => state.recomendedSlice,
-  );
+  // const { items, loading, error } = useSelector(
+  //   (state) => state.recomendedSlice,
+  // );
 
   useEffect(() => {
     dispatch(fetchRecomendedVideosTC());
   }, [dispatch]);
-  console.log(items, loading, error);
+
   return (
     <div>
       <div className="flex-1">
