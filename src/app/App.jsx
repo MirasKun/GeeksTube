@@ -1,7 +1,8 @@
-import { useState } from "react";
-import YouTubeHeader from "../components/YouTubeHeader";
-import Sidebar from "../components/Sidebar";
-import HomePage from '../components/Video/HomePage'
+import { useDispatch, useSelector } from "react-redux";
+import YouTubeHeader from '../components/header/YouTubeHeader';
+import Sidebar from "../components/sidebar/Sidebar";
+import { toggleSidebar } from "../store/slices/sidebarSlice";
+import VideoGrid from '../components/videos/VideoGrid'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const App = () => {
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <Sidebar isOpen={isOpen} />
         <main className="flex-1 overflow-y-auto text-white p-4">
-          <HomePage/>
+          <VideoGrid/>
         </main>
       </div>
     </div>
