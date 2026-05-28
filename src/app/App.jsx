@@ -12,7 +12,7 @@ const App = () => {
   const isOpen = useSelector((s) => s.sidebarSlice.isOpen);
 
   return (
-    <div className="flex flex-col h-screen bg-black overflow-hidden font-sans">
+    <div className="flex flex-col h-screen bg-[#0F0F0F] overflow-hidden font-sans">
       <YouTubeHeader toggleSidebar={() => dispatch(toggleSidebar())} />
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <Sidebar isOpen={isOpen} />

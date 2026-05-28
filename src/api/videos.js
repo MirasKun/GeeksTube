@@ -1,16 +1,5 @@
 import { instance } from "./instance.js";
 
-export const getRecomendedVideos = (pageToken = "") => {
-  return instance.get("/videos", {
-    params: {
-      part: "snippet,contentDetails,statistics",
-      chart: "mostPopular",
-      regionCode: "RU",
-      maxResults: 50,
-      pageToken,
-    },
-  });
-};
 
 export const getVideosByCategory = (categoryId, pageToken = "") => {
   return instance.get("/videos", {
@@ -25,11 +14,3 @@ export const getVideosByCategory = (categoryId, pageToken = "") => {
   });
 };
 
-export const getVideoById = (videoId) => {
-  return instance.get("/videos", {
-    params: {
-      part: "snippet,contentDetails,statistics",
-      id: videoId,
-    },
-  });
-};

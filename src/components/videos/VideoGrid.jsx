@@ -1,33 +1,21 @@
-import { useDispatch, useSelector } from 'react-redux';
-import VideoCard from './VideoCard'
-import { useEffect } from 'react';
-import { fetchRecomendedVideosTC } from '../../store/thunks/fetchRecomended';
+import { useSelector } from "react-redux";
+import VideoCard from "./VideoCard";
 
 const VideoGrid = () => {
-   const dispatch = useDispatch();
-  const { items, loading, error } = useSelector(
+  const { videos, loading, error } = useSelector(
     (state) => state.recomendedSlice,
   );
 
-  useEffect(() => {
-    dispatch(fetchRecomendedVideosTC());
-  }, [dispatch]);
-
-  if (loading) return <h1>Loading</h1>
-  if (error) return
-
-  console.log(items);
-  
-
-  
+  if (loading && videos.length === 0) return <h1>Loading</h1>;
+  if (error && videos.length === 0) return <h1>Error</h1>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-      {items.map((video) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 p-4">
+      {videos.map((video) => (
         <VideoCard key={video.id} video={video} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default VideoGrid
+export default VideoGrid;
