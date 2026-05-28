@@ -1,22 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../api/instance";
 
-export const fetchRecomendedVideosTC = createAsyncThunk(
-  "thunk/fetchRecomendedVideos",
-  async (pageToken = "", { rejectWithValue }) => {
+export const fetchVideoByIdTC = createAsyncThunk(
+  "thunk/fetchVideosById",
+  async (videoId) => {
     try {
       const res = await instance.get("/videos", {
         params: {
           part: "snippet,contentDetails,statistics",
-          chart: "mostPopular",
-          regionCode: "RU",
-          maxResults: 50,
-          pageToken,
+          id: videoId,
         },
       });
       return res.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.log(error);
+      return [];
     }
   },
 );
