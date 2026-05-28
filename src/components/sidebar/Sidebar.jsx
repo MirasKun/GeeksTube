@@ -15,7 +15,7 @@ const SECONDARY_TABS = [
     name: "Watch Later",
     label: "Watch Later",
     icon: "WatchLater",
-    path: "/watch",
+    path: "/watch/:videoId",
   },
   {
     name: "Liked Videos",

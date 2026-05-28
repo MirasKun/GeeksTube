@@ -4,8 +4,11 @@ import YouTubeHeader from "../components/header/YouTubeHeader";
 import Sidebar from "../components/sidebar/Sidebar";
 import Explore from "../pages/Explore";
 import HomePage from "../pages/HomePage";
+import History from "../pages/History";
+import LikedVideos from "../pages/LikedVideos";
+import Shorts from "../pages/Shorts";
+import Watch from "../pages/Watch"
 import SearchResultsPage from "../pages/SearchResultsPage";
-import Watch from "../pages/Watch";
 import TVMode from "../pages/TVMode";
 import { toggleSidebar } from "../store/slices/sidebarSlice";
 
@@ -20,10 +23,18 @@ const App = () => {
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <Sidebar isOpen={isOpen} />
         <main className="flex-1 overflow-y-auto text-white p-4">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/results" element={<SearchResultsPage />} />
-          </Routes>
+          <div key={location.pathname}>
+            <Routes location={location}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/explore" element={<Explore />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/liked-videos" element={<LikedVideos />} />
+              <Route path="/shorts" element={<Shorts />} />
+              <Route path="/watch/:videoId" element={<Watch />} />
+              <Route path="/tv-mode" element={<TVMode />} />
+              <Route path="/results" element={<SearchResultsPage />} />
+            </Routes>
+          </div>
         </main>
       </div>
     </div>
