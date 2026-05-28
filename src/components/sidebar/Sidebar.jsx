@@ -3,20 +3,30 @@ import SidebarItem from "./SidebarItem";
 import AccordionItem from "./AccordionItem";
 
 const MAIN_TABS = [
-  { name: "Home", label: "Home", icon: "Home" },
-  { name: "Explore", label: "Explore", icon: "Explore" },
-  { name: "Shorts", label: "Shorts", icon: "Shorts" },
-  { name: "TV Mode", label: "TV Mode", icon: "TVMode" },
+  { name: "Home", label: "Home", icon: "Home", path: "/" },
+  { name: "Explore", label: "Explore", icon: "Explore", path: "/explore" },
+  { name: "Shorts", label: "Shorts", icon: "Shorts", path: "/shorts" },
+  { name: "TV Mode", label: "TV Mode", icon: "TVMode", path: "/tv-mode" },
 ];
 
 const SECONDARY_TABS = [
-  { name: "History", label: "History", icon: "History" },
-  { name: "Watch Later", label: "Watch Later", icon: "WatchLater" },
-  { name: "Liked Videos", label: "Liked Videos", icon: "Liked" },
+  { name: "History", label: "History", icon: "History", path: "/history" },
+  {
+    name: "Watch Later",
+    label: "Watch Later",
+    icon: "WatchLater",
+    path: "/watch",
+  },
+  {
+    name: "Liked Videos",
+    label: "Liked Videos",
+    icon: "Liked",
+    path: "/liked-videos",
+  },
 ];
 
 const Sidebar = ({ isOpen }) => {
-  const [activeTab, setActiveTab] = useState("Home");
+  const [activeTab, setActiveTab] = useState("");
   const [isPlaylistsOpen, setIsPlaylistsOpen] = useState(false);
   const [isCollectionsOpen, setIsCollectionsOpen] = useState(false);
   const [isSubscriptionsOpen, setIsSubscriptionsOpen] = useState(false);
@@ -36,12 +46,11 @@ const Sidebar = ({ isOpen }) => {
         {MAIN_TABS.map((tab) => (
           <SidebarItem
             key={tab.name}
-            name={tab.name}
             label={tab.label}
             iconName={tab.icon}
-            isActive={activeTab === tab.name}
             isOpen={isOpen}
-            onClick={() => setActiveTab(tab.name)}
+            to={tab.path}
+            end={tab.path === "/"}
           />
         ))}
       </div>
@@ -52,12 +61,10 @@ const Sidebar = ({ isOpen }) => {
         {SECONDARY_TABS.map((tab) => (
           <SidebarItem
             key={tab.name}
-            name={tab.name}
             label={tab.label}
             iconName={tab.icon}
-            isActive={activeTab === tab.name}
             isOpen={isOpen}
-            onClick={() => setActiveTab(tab.name)}
+            to={tab.path}
           />
         ))}
 
