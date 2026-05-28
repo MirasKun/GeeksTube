@@ -42,19 +42,21 @@ const Watch = () => {
                     />
                   </button>
                 </div>
-                <div className="flex items-center bg-zinc-800 gap-1.5 px-5 py-2.5 rounded-full">
-                  <button className="flex items-center gap-2 text-white">
+                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full">
+                  <button className="flex items-center gap-1 text-white">
+                    <img className="w-6 h-6" src="/Watch/Share_YouTube.svg" alt="" />
                     <p className=" font-bold">Поделиться</p>
                   </button>
                 </div>
-                <div className="flex items-center bg-zinc-800 gap-1.5 px-5 py-2.5 rounded-full">
+                <div className="flex items-center bg-zinc-800 gap-1.5 px-3 py-2.5 rounded-full">
                   <button className="flex items-center gap-2 text-white">
+                    <img src="/Watch/Save_YouTube.svg" alt="Save" />
                     <p className=" font-bold">Сохранить</p>
                   </button>
                 </div>
-                <div className="flex items-center bg-zinc-800 gap-1.5 px-4 py-2.5 rounded-full">
-                  <button>
-                    <p>67</p>
+                <div className="flex items-center bg-zinc-800 gap-1.5 px-3 py-2 rounded-full">
+                  <button className="flex items-center ">
+                    <img className="w-7 h-7" src="/Watch/Burger..._YouTube.svg" alt="Burger" />
                   </button>
                 </div>
               </div>
