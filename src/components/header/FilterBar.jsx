@@ -14,7 +14,7 @@ const FilterBar = () => {
           className={`px-3 py-1 rounded-lg transition-colors ${
             activeFilter === filter
               ? "bg-white text-black"
-              : "bg-gray-700 text-white hover:bg-gray-600"
+              : "bg-[#C4E4FF14] text-white hover:bg-gray-600"
           }`}
         >
           {filter}
