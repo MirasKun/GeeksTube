@@ -2,14 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import YouTubeHeader from "../components/header/YouTubeHeader";
 import Sidebar from "../components/sidebar/Sidebar";
-import Explore from "../pages/Explore";
 import HomePage from "../pages/HomePage";
 import History from "../pages/History";
 import LikedVideos from "../pages/LikedVideos";
 import Shorts from "../pages/Shorts";
-import Watch from "../pages/Watch"
+import Watch from "../pages/Watch";
 import SearchResultsPage from "../pages/SearchResultsPage";
-import TVMode from "../pages/TVMode";
 import { toggleSidebar } from "../store/slices/sidebarSlice";
 
 const App = () => {
@@ -26,12 +24,10 @@ const App = () => {
           <div key={location.pathname}>
             <Routes location={location}>
               <Route path="/" element={<HomePage />} />
-              <Route path="/explore" element={<Explore />} />
               <Route path="/history" element={<History />} />
               <Route path="/liked-videos" element={<LikedVideos />} />
               <Route path="/shorts" element={<Shorts />} />
               <Route path="/watch/:videoId" element={<Watch />} />
-              <Route path="/tv-mode" element={<TVMode />} />
               <Route path="/results" element={<SearchResultsPage />} />
             </Routes>
           </div>

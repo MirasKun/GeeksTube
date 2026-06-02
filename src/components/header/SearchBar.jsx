@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getSearchResults } from "../../api/search";
 
 const SearchBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
@@ -32,7 +33,14 @@ const SearchBar = () => {
   const goToResults = (query) => {
     if (!query.trim()) return;
     setIsFocused(false);
-    navigate(`/results?search_query=${encodeURIComponent(query.trim())}`);
+    const nextQuery = encodeURIComponent(query.trim());
+
+    if (location.pathname === "/shorts") {
+      navigate(`/shorts?search_query=${nextQuery}`);
+      return;
+    }
+
+    navigate(`/results?search_query=${nextQuery}`);
   };
 
   const handleKeyDown = (e) => {

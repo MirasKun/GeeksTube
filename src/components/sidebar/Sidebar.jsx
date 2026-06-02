@@ -4,9 +4,7 @@ import AccordionItem from "./AccordionItem";
 
 const MAIN_TABS = [
   { name: "Home", label: "Home", icon: "Home", path: "/" },
-  { name: "Explore", label: "Explore", icon: "Explore", path: "/explore" },
   { name: "Shorts", label: "Shorts", icon: "Shorts", path: "/shorts" },
-  { name: "TV Mode", label: "TV Mode", icon: "TVMode", path: "/tv-mode" },
 ];
 
 const SECONDARY_TABS = [
