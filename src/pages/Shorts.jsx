@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { fetchShortsTC } from "../store/thunks/fetchShorts";
 import { resetShorts } from "../store/slices/shortsSlice";
+import { Flex, Spin } from "antd";
+import { LoadingOutlined } from "antd-icons"
 
 const Shorts = () => {
   const dispatch = useDispatch();

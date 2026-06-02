@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecomendedVideosTC } from "../store/thunks/fetchRecomended";
 import VideoGrid from "../components/videos/VideoGrid";
+import { Flex, Spin } from "antd";
+import { LoadingOutlined } from "antd-icons";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -52,14 +54,14 @@ const HomePage = () => {
 
       {loading && videos.length > 0 && (
         <Flex justify="center" align="center">
-          <Spin  indicator={<LoadingOutlined spin style={{color: "#ffffff"}}/>} />
+          <Spin
+            indicator={<LoadingOutlined spin style={{ color: "#ffffff" }} />}
+          />
         </Flex>
       )}
 
       {error && (
-        <p className="text-center text-red-400 py-4">
-          Ошибка загрузки видео
-        </p>
+        <p className="text-center text-red-400 py-4">Ошибка загрузки видео</p>
       )}
 
       <div ref={loaderRef} className="h-10" />
