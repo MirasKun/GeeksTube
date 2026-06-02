@@ -1,12 +1,14 @@
+import { useParams } from "react-router-dom";
 import VideoPlayer from "./VideoPlayer";
 
 const Watch = () => {
+   const { videoId } = useParams();
   return (
     <div>
       <div className="w-full max-w-450 px-4 py-6">
         <div className="flex gap-6">
           <div className="w-960">
-            <VideoPlayer videoId="zKzoIZ9rT_4" />
+            <VideoPlayer videoId={videoId}/>
 
             <h1 className="mt-4 text-xl text-white">Название видео</h1>
             <div className="mt-3 flex items-center gap-4 justify-between">
@@ -48,8 +50,8 @@ const Watch = () => {
                     <p className=" font-bold">Поделиться</p>
                   </button>
                 </div>
-                <div className="flex items-center bg-zinc-800 gap-1.5 px-3 py-2.5 rounded-full">
-                  <button className="flex items-center gap-2 text-white">
+                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full">
+                  <button className="flex items-center gap-1 text-white">
                     <img src="/Watch/Save_YouTube.svg" alt="Save" />
                     <p className=" font-bold">Сохранить</p>
                   </button>
