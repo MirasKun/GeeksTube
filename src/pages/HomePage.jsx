@@ -51,7 +51,9 @@ const HomePage = () => {
       {loading && videos.length === 0 && <h1>Loading</h1>}
 
       {loading && videos.length > 0 && (
-        <p className="text-center text-gray-400 py-4">Загрузка...</p>
+        <Flex justify="center" align="center">
+          <Spin  indicator={<LoadingOutlined spin style={{color: "#ffffff"}}/>} />
+        </Flex>
       )}
 
       {error && (

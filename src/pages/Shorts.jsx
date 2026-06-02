@@ -102,11 +102,15 @@ const Shorts = () => {
       </div>
 
       {loading && shorts.length === 0 && (
-        <p className="py-6 text-center text-white/55">Загрузка ...</p>
+        <Flex justify="center" align="center">
+          <Spin  indicator={<LoadingOutlined spin style={{color: "#ffffff"}}/>} />
+        </Flex>
       )}
 
       {loading && shorts.length > 0 && (
-        <p className="py-6 text-center text-white/55">Загружаем ...</p>
+        <Flex justify="center" align="center">
+          <Spin  indicator={<LoadingOutlined spin style={{color: "#ffffff"}}/>} />
+        </Flex>
       )}
 
       {error && <p className="py-6 text-center text-red-400">{error}</p>}
