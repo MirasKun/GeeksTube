@@ -11,7 +11,7 @@ export const fetchShortsTC = createAsyncThunk(
           type: "video",
           videoDuration: "short",
           q: query,
-          regionCode: "US",
+          regionCode: "RU",
           relevanceLanguage: "ru",
           maxResults: 12,
           pageToken,

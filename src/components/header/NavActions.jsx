@@ -43,14 +43,21 @@ const NavActions = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <button className="p-2 rounded-full hover:bg-gray-700">
-        <img src="/header/Create.svg" alt="" />
-      </button>
+      <a
+        href="https://studio.youtube.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="p-2 rounded-full hover:bg-gray-700 block shrink-0"
+        title="Творческая студия YouTube"
+      >
+        <img src="/header/Create.svg" alt="Studio" />
+      </a>
+
       <button className="p-2 rounded-full hover:bg-gray-700">
         <img src="/header/Bell.svg" alt="Bell" />
       </button>
       <button className="p-2 rounded-full hover:bg-gray-700">
-        <img src="/header/Settings.svg" alt="" />
+        <img src="/header/Settings.svg" alt="Settings" />
       </button>
 
       {authLoading ? (
@@ -84,7 +91,7 @@ const NavActions = () => {
           type="primary"
           onClick={handleLogin}
           style={{ backgroundColor: "#FF0033" }}
-          className="border-none rounded-full h-8 font-medium px-4 hover:!bg-[#E0002D]"
+          className="border-none rounded-full"
         >
           Войти
         </Button>

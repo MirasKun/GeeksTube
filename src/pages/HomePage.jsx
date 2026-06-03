@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchRecomendedVideosTC } from "../store/thunks/fetchRecomended";
 import VideoGrid from "../components/videos/VideoGrid";
 import { Flex, Spin } from "antd";
-import { LoadingOutlined } from "antd-icons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const HomePage = () => {
   const dispatch = useDispatch();
