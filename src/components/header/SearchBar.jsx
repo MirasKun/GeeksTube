@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getSearchResults } from "../../api/search";
+import { message } from "antd";
 
 const SearchBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const inputRef = useRef(null);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(async () => {
@@ -30,18 +34,21 @@ const SearchBar = () => {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const goToResults = (query) => {
-    if (!query.trim()) return;
-    setIsFocused(false);
-    const nextQuery = encodeURIComponent(query.trim());
+  const goToResults = useCallback(
+    (query) => {
+      if (!query.trim()) return;
+      setIsFocused(false);
+      const nextQuery = encodeURIComponent(query.trim());
 
-    if (location.pathname === "/shorts") {
-      navigate(`/shorts?search_query=${nextQuery}`);
-      return;
-    }
+      if (location.pathname === "/shorts") {
+        navigate(`/shorts?search_query=${nextQuery}`);
+        return;
+      }
 
-    navigate(`/results?search_query=${nextQuery}`);
-  };
+      navigate(`/results?search_query=${nextQuery}`);
+    },
+    [location.pathname, navigate],
+  );
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") goToResults(searchQuery);
@@ -58,94 +65,165 @@ const SearchBar = () => {
     setIsFocused(false);
   };
 
+  const handleMagnifierClick = () => {
+    if (!searchQuery.trim()) {
+      if (inputRef.current) inputRef.current.focus();
+    } else {
+      goToResults(searchQuery);
+    }
+  };
+
+  const handleVoiceRecognition = () => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      message.error("Голосовой поиск не поддерживается в вашем браузере");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    {
+      / Я не уверен что этот код работает, т.к у меня браузер проcто пишет не поддерживается /;
+    }
+    recognition.lang = "ru-RU";
+    recognition.interimResults = false;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+      message.loading({ content: "Говорите...", key: "voiceRecording" });
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+      message.destroy("voiceRecording");
+    };
+
+    recognition.onerror = (event) => {
+      setIsListening(false);
+      message.destroy("voiceRecording");
+      if (event.error === "not-allowed") {
+        message.error("Доступ к микрофону заблокирован");
+      } else {
+        message.error("Ошибка распознавания. Попробуйте еще раз.");
+      }
+    };
+
+    recognition.onresult = (event) => {
+      const text = event.results[0][0].transcript;
+      setSearchQuery(text);
+      message.success({
+        content: `Распознано: ${text}`,
+        key: "voiceRecording",
+        duration: 2,
+      });
+      goToResults(text);
+    };
+
+    try {
+      recognition.start();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const showDropdown =
     isFocused && searchQuery.trim() && suggestions.length > 0;
 
   return (
-    <div className="relative flex items-center w-150">
-      <div
-        className={`flex items-center w-full border px-4 h-10 gap-1.5 transition-all ${
-          showDropdown
-            ? "border-[#FF0033] rounded-t-2xl rounded-b-none"
-            : "border-gray-600 rounded-full"
-        }`}
-      >
-        <button
-          onMouseDown={() => goToResults(searchQuery)}
-          className="shrink-0"
+    <div className="relative flex items-center gap-3 w-full max-w-[600px] mx-4">
+      <div className="relative flex w-full">
+        <div
+          className={`flex items-center w-full border px-4 h-10 gap-1.5 transition-all ${
+            showDropdown
+              ? "border-[#FF0033] rounded-t-2xl rounded-b-none"
+              : "border-gray-600 rounded-full"
+          }`}
         >
-          {loading ? (
-            <div className="w-4 h-4 border-2 border-gray-500 border-t-white rounded-full animate-spin" />
-          ) : (
-            <img src="/header/Search.svg" alt="search" />
-          )}
-        </button>
-
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setTimeout(() => setIsFocused(false), 150)}
-          onKeyDown={handleKeyDown}
-          placeholder="Search"
-          className="w-full bg-transparent text-white outline-none"
-        />
-
-        {searchQuery && (
-          <button
-            onMouseDown={handleClear}
-            className="text-gray-400 hover:text-white text-base shrink-0"
-          >
-            ✕
+          <button onClick={handleMagnifierClick} className="shrink-0">
+            {loading ? (
+              <div className="w-4 h-4 border-2 border-gray-500 border-t-white rounded-full animate-spin" />
+            ) : (
+              <img src="/header/Search.svg" alt="search" className="w-5 h-5" />
+            )}
           </button>
+
+          <input
+            ref={inputRef}
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setTimeout(() => setIsFocused(false), 150)}
+            onKeyDown={handleKeyDown}
+            placeholder="Введите запрос"
+            className="w-full bg-transparent text-white outline-none ml-2"
+          />
+
+          {searchQuery && (
+            <button
+              onMouseDown={handleClear}
+              className="text-gray-400 hover:text-white text-base shrink-0"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+
+        {showDropdown && (
+          <ul className="absolute top-10 left-0 right-0 bg-[#212121] border border-[#FF0033] border-t-0 rounded-b-2xl z-50 overflow-hidden shadow-2xl">
+            {suggestions.slice(0, 10).map((item) => {
+              const title = item.snippet?.title ?? "";
+              const thumb = item.snippet?.thumbnails?.default?.url;
+              const channel = item.snippet?.channelTitle ?? "";
+              return (
+                <li
+                  key={item.id?.videoId}
+                  onMouseDown={() => handleSuggestionClick(title)}
+                  className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-[#303030] transition-colors"
+                >
+                  {thumb && (
+                    <img
+                      src={thumb}
+                      alt=""
+                      className="w-10 h-7 object-cover rounded shrink-0"
+                    />
+                  )}
+                  <div className="flex flex-col min-w-0">
+                    <span
+                      className="text-gray-200 text-sm truncate"
+                      dangerouslySetInnerHTML={{
+                        __html: title.replace(
+                          new RegExp(
+                            `(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+                            "gi",
+                          ),
+                          '<strong class="text-white">$1</strong>',
+                        ),
+                      }}
+                    />
+                    <span className="text-gray-500 text-xs truncate">
+                      {channel}
+                    </span>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         )}
-        <button className="p-1 shrink-0">
-          <img src="/header/Voice.svg" alt="" />
-        </button>
       </div>
 
-      {showDropdown && (
-        <ul className="absolute top-10 left-0 right-0 bg-[#212121] border border-[#FF0033] border-t-0 rounded-b-2xl z-50 overflow-hidden shadow-2xl">
-          {suggestions.slice(0, 10).map((item) => {
-            const title = item.snippet?.title ?? "";
-            const thumb = item.snippet?.thumbnails?.default?.url;
-            const channel = item.snippet?.channelTitle ?? "";
-            return (
-              <li
-                key={item.id?.videoId}
-                onMouseDown={() => handleSuggestionClick(title)}
-                className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-[#303030] transition-colors"
-              >
-                {thumb && (
-                  <img
-                    src={thumb}
-                    alt=""
-                    className="w-10 h-7 object-cover rounded shrink-0"
-                  />
-                )}
-                <div className="flex flex-col min-w-0">
-                  <span
-                    className="text-gray-200 text-sm truncate"
-                    dangerouslySetInnerHTML={{
-                      __html: title.replace(
-                        new RegExp(
-                          `(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-                          "gi",
-                        ),
-                        '<strong class="text-white">$1</strong>',
-                      ),
-                    }}
-                  />
-                  <span className="text-gray-500 text-xs truncate">
-                    {channel}
-                  </span>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <button
+        onClick={handleVoiceRecognition}
+        className={`flex items-center justify-center w-10 h-10 shrink-0 rounded-full transition-all ${
+          isListening
+            ? "bg-[#FF0033] animate-pulse"
+            : "bg-[#222222] hover:bg-[#303030]"
+        }`}
+        title="Голосовой поиск"
+      >
+        <img src="/header/Voice.svg" alt="voice" className="w-5 h-5" />
+      </button>
     </div>
   );
 };

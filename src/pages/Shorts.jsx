@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { fetchShortsTC } from "../store/thunks/fetchShorts";
 import { resetShorts } from "../store/slices/shortsSlice";
 import { Flex, Spin } from "antd";
-import { LoadingOutlined } from "antd-icons"
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Shorts = () => {
   const dispatch = useDispatch();
@@ -51,9 +51,7 @@ const Shorts = () => {
     <div className="mx-auto w-full max-w-screen-2xl pb-10 text-white">
       <div className="mb-6 flex flex-col gap-2 px-1 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="mt-2 text-2xl font-semibold md:text-3xl">
-            Shorts
-          </h1>
+          <h1 className="mt-2 text-2xl font-semibold md:text-3xl">Shorts</h1>
         </div>
       </div>
 
@@ -105,13 +103,17 @@ const Shorts = () => {
 
       {loading && shorts.length === 0 && (
         <Flex justify="center" align="center">
-          <Spin  indicator={<LoadingOutlined spin style={{color: "#ffffff"}}/>} />
+          <Spin
+            indicator={<LoadingOutlined spin style={{ color: "#ffffff" }} />}
+          />
         </Flex>
       )}
 
       {loading && shorts.length > 0 && (
         <Flex justify="center" align="center">
-          <Spin  indicator={<LoadingOutlined spin style={{color: "#ffffff"}}/>} />
+          <Spin
+            indicator={<LoadingOutlined spin style={{ color: "#ffffff" }} />}
+          />
         </Flex>
       )}
 
