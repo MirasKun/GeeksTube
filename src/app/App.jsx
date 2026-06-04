@@ -8,7 +8,7 @@ import LikedVideos from "../pages/LikedVideos";
 import Shorts from "../pages/Shorts";
 import Watch from "../pages/Watch";
 import SearchResultsPage from "../pages/SearchResultsPage";
-import { toggleSidebar } from "../store/slices/sidebarSlice";
+import { toggleSidebar } from "../store/slices/spec/sidebarSlice";
 
 const App = () => {
   const dispatch = useDispatch();

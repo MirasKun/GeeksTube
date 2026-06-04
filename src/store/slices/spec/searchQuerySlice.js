@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchSearchResultsTC } from "../thunks/fetchSearchResults";
+import { fetchSearchResultsTC } from "../../thunks/spec/fetchSearchResults";
 
 const initialState = {
   searchResults: [],

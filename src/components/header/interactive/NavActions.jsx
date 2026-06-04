@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, message } from "antd";
+import { Button } from "antd";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/firebaseConfig";
-import { loginWithGoogle, logoutUser } from "../../store/thunks/auth";
+import { auth } from "../../../firebase/firebaseConfig";
+import { loginWithGoogle, logoutUser } from "../../../store/thunks/auth";
 
 const NavActions = () => {
   const [user, setUser] = useState(null);

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getSearchResults } from "../../api/search";
+import { getSearchResults } from "../../../api/data/search";
 export const fetchSearchResultsTC = createAsyncThunk(
   "thunk/fetchSearchResults",
   async (searchQuery = "") => {

@@ -1,18 +1,18 @@
 import { useParams, useSearchParams } from "react-router-dom";
-import VideoPlayer from "./VideoPlayer";
+import VideoPlayer from "../components/players/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchVideoByIdTC } from "../store/thunks/fetchVideoById";
+import { fetchVideoByIdTC } from "../store/thunks/spec/fetchVideoById";
 
 const Watch = () => {
   const dispatch = useDispatch();
   const { videoId } = useParams();
   const { searchVideoId } = useSearchParams();
-  const { video, loading, error } = useSelector((s) => s.videoByIdSlice);
+  const { video } = useSelector((s) => s.videoByIdSlice);
 
   useEffect(() => {
     dispatch(fetchVideoByIdTC(videoId));
-  }, []);
+  }, [dispatch, videoId]);
 
   const videoTitle = video.snippet?.title;
   const channelTitle = video.snippet?.channelTitle;

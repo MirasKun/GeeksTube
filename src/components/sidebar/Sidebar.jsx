@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SidebarItem from "./SidebarItem";
-import AccordionItem from "./AccordionItem";
+import SidebarItem from "./item/SidebarItem";
+import AccordionItem from "./item/AccordionItem";
 
 const MAIN_TABS = [
   { name: "Главная", label: "Главная", icon: "Home", path: "/" },
@@ -68,7 +68,7 @@ const Sidebar = ({ isOpen }) => {
 
         <AccordionItem
           name="Playlists"
-          label="Playlists"
+          label="Плейлисты"
           iconName="Playlists"
           isActive={activeTab === "Playlists"}
           isOpen={isOpen}
@@ -88,7 +88,7 @@ const Sidebar = ({ isOpen }) => {
       <div className="flex flex-col gap-1 my-2">
         <AccordionItem
           name="Collections"
-          label="Collections"
+          label="Коллекции"
           iconName="collections"
           isActive={activeTab === "Collections"}
           isOpen={isOpen}
@@ -104,7 +104,7 @@ const Sidebar = ({ isOpen }) => {
 
         <AccordionItem
           name="Subscriptions"
-          label="Subscriptions"
+          label="Подписки"
           iconName="Subscriptions"
           isActive={activeTab === "Subscriptions"}
           isOpen={isOpen}

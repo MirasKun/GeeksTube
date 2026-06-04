@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import VideoCard from "../components/videos/VideoCard";
+import VideoCard from "../components/videos/cards/VideoCard";
 
 const History = () => {
   useEffect(() => {
@@ -70,19 +70,21 @@ const History = () => {
 
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-4 mb-6">
         <div className="flex flex-wrap gap-2">
-          {["Videos", "Posts", "Live", "Shorts", "Comments"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                activeTab === tab
-                  ? "bg-white text-black"
-                  : "bg-zinc-800 text-white hover:bg-zinc-700"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
+          {["Видео", "Посты", "Прямой эфир", "Shorts", "Комментарии"].map(
+            (tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  activeTab === tab
+                    ? "bg-white text-black"
+                    : "bg-zinc-800 text-white hover:bg-zinc-700"
+                }`}
+              >
+                {tab}
+              </button>
+            ),
+          )}
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
@@ -95,7 +97,7 @@ const History = () => {
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              Newest
+              Новейшие
             </button>
             <button
               onClick={() => setSortOrder("Oldest")}
@@ -105,12 +107,12 @@ const History = () => {
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              Oldest
+              Старые
             </button>
           </div>
 
           <button className="px-3 py-1.5 bg-zinc-800 text-xs rounded-lg text-gray-300 hover:bg-zinc-700">
-            Date Range: All
+            Диапозон дат: все даты
           </button>
 
           <div className="flex items-center bg-zinc-800 rounded-lg p-1 gap-1">
@@ -135,7 +137,7 @@ const History = () => {
           <div className="relative">
             <input
               type="text"
-              placeholder="Search history"
+              placeholder="Поиск в истории"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent border border-zinc-700 rounded-full text-sm pl-4 pr-8 py-1.5 w-56 focus:outline-none focus:border-zinc-500 text-zinc-200"
