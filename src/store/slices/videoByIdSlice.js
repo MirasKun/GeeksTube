@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchVideoByIdTC } from "../thunks/fetchVideoById";
 
 const initialState = {
-  video: null,
+  video: [],
   loading: false,
   error: null,
 };

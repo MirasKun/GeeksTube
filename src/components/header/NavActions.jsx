@@ -24,13 +24,13 @@ const NavActions = () => {
     }
   };
 
-  const handleLeftClick = useCallback(() => {
-    message.info({
-      content: "Это вы",
-      duration: 2,
-      style: { marginTop: "10px" },
-    });
-  }, []);
+  // const handleLeftClick = useCallback(() => {
+  //   message.info({
+  //     content: "Это вы",
+  //     duration: 2,
+  //     style: { marginTop: "10px" },
+  //   });
+  // }, []);
 
   const handleRightClick = useCallback(async (e) => {
     e.preventDefault();
@@ -66,7 +66,6 @@ const NavActions = () => {
         </div>
       ) : user ? (
         <div
-          onClick={handleLeftClick}
           onContextMenu={handleRightClick}
           title="ЛКМ: статус / ПКМ: выйти"
           className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold cursor-pointer uppercase select-none hover:opacity-90 overflow-hidden"

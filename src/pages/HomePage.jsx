@@ -54,9 +54,7 @@ const HomePage = () => {
 
       {loading && videos.length > 0 && (
         <Flex justify="center" align="center">
-          <Spin
-            indicator={<LoadingOutlined spin style={{ color: "#ffffff" }} />}
-          />
+          <Spin  indicator={<LoadingOutlined spin style={{color: "#ffffff"}}/>} />
         </Flex>
       )}
 

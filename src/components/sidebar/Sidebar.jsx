@@ -3,21 +3,21 @@ import SidebarItem from "./SidebarItem";
 import AccordionItem from "./AccordionItem";
 
 const MAIN_TABS = [
-  { name: "Home", label: "Home", icon: "Home", path: "/" },
+  { name: "Главная", label: "Главная", icon: "Home", path: "/" },
   { name: "Shorts", label: "Shorts", icon: "Shorts", path: "/shorts" },
 ];
 
 const SECONDARY_TABS = [
-  { name: "History", label: "History", icon: "History", path: "/history" },
+  { name: "История", label: "История", icon: "History", path: "/history" },
   {
-    name: "Watch Later",
-    label: "Watch Later",
+    name: "Смотреть позже",
+    label: "Смотреть позже",
     icon: "WatchLater",
     path: "/watch/:videoId",
   },
   {
-    name: "Liked Videos",
-    label: "Liked Videos",
+    name: "Понравившиеся",
+    label: "Понравившиеся",
     icon: "Liked",
     path: "/liked-videos",
   },
