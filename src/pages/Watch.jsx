@@ -3,6 +3,7 @@ import VideoPlayer from "./VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchVideoByIdTC } from "../store/thunks/fetchVideoById";
+import VideoGrid from "../components/videos/VideoGrid";
 
 const Watch = () => {
   const dispatch = useDispatch();
@@ -99,8 +100,8 @@ const Watch = () => {
           <div className="w-400">
             <h2 className="mb-3 text-white">Рекомендации</h2>
 
-            <div>
-              <div className="flex gap-3">
+            <div className="grid grid-cols-1">
+              {/* <div className="flex gap-3">
                 <div className="w-40 h-23 bg-zinc-800 rounded-lg" />
                 <div>
                   <p className="text-sm text-white">Другое интересное видео</p>
@@ -110,7 +111,8 @@ const Watch = () => {
                     <p className="text-xs text-gray-400">5 лет назад</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              <VideoGrid/>
             </div>
           </div>
         </div>
