@@ -10,7 +10,7 @@ export const fetchRecomendedVideosTC = createAsyncThunk(
           part: "snippet,contentDetails,statistics",
           chart: "mostPopular",
           regionCode: "RU",
-          maxResults: 50,
+          maxResults: 20,
           pageToken,
         },
       });

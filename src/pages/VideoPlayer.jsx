@@ -1,17 +1,26 @@
+import YouTube from 'react-youtube';
 
+const VideoPlayer = ({ videoId, searchVideoId }) => {
+  const opts = {
+    width: '100%',
+    height: '100%',
+    playerVars: {
+      autoplay: 1,
+      rel: 0,       
+      modestbranding: 1 
+    },
+  };
 
-const VideoPlayer = ({ videoId }) => {
-  return <div>
-     <div className="aspect-video w-full bg-black rounded-xl overflow-hidden">
-      <iframe
+  return (
+    <div className="aspect-video w-full bg-black rounded-xl overflow-hidden">
+      <YouTube
+        videoId={videoId}
+        opts={opts}
         className="w-full h-full"
-        src={`https://www.youtube.com/embed/${videoId}`}
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
+        iframeClassName="w-full h-full"
       />
     </div>
-  </div>;
+  );
 };
 
 export default VideoPlayer;

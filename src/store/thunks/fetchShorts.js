@@ -13,7 +13,7 @@ export const fetchShortsTC = createAsyncThunk(
           q: query,
           regionCode: "US",
           relevanceLanguage: "ru",
-          maxResults: 12,
+          maxResults: 20,
           pageToken,
         },
       });
