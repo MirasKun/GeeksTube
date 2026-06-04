@@ -50,11 +50,19 @@ const HomePage = () => {
     <div>
       <VideoGrid />
 
-      {loading && videos.length === 0 && <h1>Loading</h1>}
+      {loading && videos.length === 0 && (
+        <Flex justify="center" align="center">
+          <Spin
+            indicator={<LoadingOutlined spin style={{ color: "#ffffff" }} />}
+          />
+        </Flex>
+      )}
 
       {loading && videos.length > 0 && (
         <Flex justify="center" align="center">
-          <Spin  indicator={<LoadingOutlined spin style={{color: "#ffffff"}}/>} />
+          <Spin
+            indicator={<LoadingOutlined spin style={{ color: "#ffffff" }} />}
+          />
         </Flex>
       )}
 
