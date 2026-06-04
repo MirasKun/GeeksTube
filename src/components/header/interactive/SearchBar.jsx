@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getSearchResults } from "../../api/search";
+import { getSearchResults } from "../../../api/data/search";
 import { message } from "antd";
 
 const SearchBar = () => {

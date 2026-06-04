@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchShortsTC } from "../thunks/fetchShorts";
+import { fetchShortsTC } from "../../thunks/general/fetchShorts";
 
 const initialState = {
   shorts: [],

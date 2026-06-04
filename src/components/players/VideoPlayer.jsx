@@ -1,13 +1,13 @@
-import YouTube from 'react-youtube';
+import YouTube from "react-youtube";
 
-const VideoPlayer = ({ videoId, searchVideoId }) => {
+const VideoPlayer = ({ videoId }) => {
   const opts = {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     playerVars: {
       autoplay: 1,
-      rel: 0,       
-      modestbranding: 1 
+      rel: 0,
+      modestbranding: 1,
     },
   };
 
