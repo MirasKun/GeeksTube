@@ -52,14 +52,14 @@ const ChannelHeader = ({ channel }) => {
           </p>
 
           {description && (
-            <p className="mt-2 text-sm text-[#aaaaaa]">
+            <p className="mt-2 text-sm text-[#ffffff]">
               {shortDescription}
               {description.length > 80 && !descriptionExpanded && "..."}
               {description.length > 80 && (
                 <button
                   type="button"
                   onClick={() => setDescriptionExpanded((v) => !v)}
-                  className="ml-1 font-medium hover:text-white"
+                  className="ml-1 font-medium text-[#aaaaaa] hover:text-[#eeeeee]"
                 >
                   {descriptionExpanded ? "свернуть" : "ещё"}
                 </button>
