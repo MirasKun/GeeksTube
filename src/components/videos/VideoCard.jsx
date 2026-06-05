@@ -35,7 +35,13 @@ const VideoCard = memo(({ video }) => {
           <h3 className="text-white font-medium text-sm line-clamp-2">
             {title}
           </h3>
-          <p className="text-gray-400 text-sm mt-1">{channelName}</p>
+          <Link
+            to={`/channel/${snippet.channelId}`}
+            onClick={(e) => e.stopPropagation()}
+            className="text-gray-400 text-sm mt-1 block hover:text-white transition-colors"
+          >
+            {channelName}
+          </Link>
           <p className="text-gray-400 text-sm">{views} просмотров</p>
         </div>
       </div>

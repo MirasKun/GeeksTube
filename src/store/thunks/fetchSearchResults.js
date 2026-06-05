@@ -1,14 +1,23 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSearchResults } from "../../api/search";
+
 export const fetchSearchResultsTC = createAsyncThunk(
-  "thunk/fetchSearchResults",
-  async (searchQuery = "") => {
+  "search/fetchResults",
+  async (query, { rejectWithValue }) => {
+    const trimmed = (typeof query === "string" ? query : query?.query ?? "").trim();
+
+    if (!trimmed) {
+      return { items: [], nextPageToken: "", query: "" };
+    }
+
     try {
-      const res = await getSearchResults(searchQuery);
-      return res.data;
+      const res = await getSearchResults(trimmed);
+      return {
+        ...res.data,
+        query: trimmed,
+      };
     } catch (error) {
-      console.log(error);
-      return [];
+      return rejectWithValue((error, "Ошибка поиска"));
     }
   },
 );

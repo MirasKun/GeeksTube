@@ -11,12 +11,16 @@ export const fetchRecomendedVideosTC = createAsyncThunk(
           chart: "mostPopular",
           regionCode: "RU",
           maxResults: 50,
-          pageToken,
+          pageToken: pageToken || undefined,
         },
       });
       return res.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(
+        error.response?.data?.error?.message ||
+          error.message ||
+          "Ошибка загрузки видео",
+      );
     }
   },
 );

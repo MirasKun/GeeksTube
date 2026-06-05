@@ -5,6 +5,7 @@ import searchQuerySlice from "./slices/searchQuerySlice";
 import sidebarSlice from "./slices/sidebarSlice";
 import shortsSlice from "./slices/shortsSlice";
 import videoByIdSlice from "./slices/videoByIdSlice";
+import channelSlice from "./slices/channelSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     sidebarSlice,
     shortsSlice,
     videoByIdSlice,
+    channelSlice,
   },
 });

@@ -8,6 +8,7 @@ import LikedVideos from "../pages/LikedVideos";
 import Shorts from "../pages/Shorts";
 import Watch from "../pages/Watch";
 import SearchResultsPage from "../pages/SearchResultsPage";
+import ChannelPage from "../pages/ChannelPage";
 import { toggleSidebar } from "../store/slices/sidebarSlice";
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
               <Route path="/shorts" element={<Shorts />} />
               <Route path="/watch/:videoId" element={<Watch />} />
               <Route path="/results" element={<SearchResultsPage />} />
+              <Route path="/channel/:channelId" element={<ChannelPage />} />
             </Routes>
           </div>
         </main>

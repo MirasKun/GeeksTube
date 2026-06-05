@@ -3,23 +3,30 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getSearchResults } from "../../api/search";
 import { message } from "antd";
 
-const SearchBar = () => {
+const getQueryFromLocation = (location) => {
+  if (location.pathname !== "/results") return "";
+  const q = new URLSearchParams(location.search).get("search_query");
+  return q ? decodeURIComponent(q) : "";
+};
+
+const SearchBarInner = ({ defaultQuery = "" }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const inputRef = useRef(null);
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(defaultQuery);
   const [isFocused, setIsFocused] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
+    if (!isFocused || !searchQuery.trim()) {
+      setSuggestions([]);
+      return;
+    }
+
     const timer = setTimeout(async () => {
-      if (!searchQuery.trim()) {
-        setSuggestions([]);
-        return;
-      }
       setLoading(true);
       try {
         const res = await getSearchResults(searchQuery);
@@ -29,10 +36,10 @@ const SearchBar = () => {
       } finally {
         setLoading(false);
       }
-    }, 1000);
+    }, 1500);
 
     return () => clearTimeout(timer);
-  }, [searchQuery]);
+  }, [searchQuery, isFocused]);
 
   const goToResults = useCallback(
     (query) => {
@@ -225,6 +232,18 @@ const SearchBar = () => {
         <img src="/header/Voice.svg" alt="voice" className="w-5 h-5" />
       </button>
     </div>
+  );
+};
+
+const SearchBar = () => {
+  const location = useLocation();
+  const defaultQuery = getQueryFromLocation(location);
+
+  return (
+    <SearchBarInner
+      key={`${location.pathname}${location.search}`}
+      defaultQuery={defaultQuery}
+    />
   );
 };
 
