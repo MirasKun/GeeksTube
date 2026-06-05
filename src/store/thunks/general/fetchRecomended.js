@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../../api/instance";
+import { instance } from "../../../api/instances/instance";
 
 export const fetchRecomendedVideosTC = createAsyncThunk(
   "thunk/fetchRecomendedVideos",
@@ -10,7 +10,7 @@ export const fetchRecomendedVideosTC = createAsyncThunk(
           part: "snippet,contentDetails,statistics",
           chart: "mostPopular",
           regionCode: "RU",
-          maxResults: 50,
+          maxResults: 20,
           pageToken,
         },
       });

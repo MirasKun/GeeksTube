@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "ready": "npm run lint && npm run build"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.2.5",
     "@reduxjs/toolkit": "^2.12.0",
     "@tailwindcss/vite": "^4.3.0",
     "antd": "^6.4.3",
@@ -20,6 +21,7 @@
     "react-dom": "^19.2.6",
     "react-redux": "^9.3.0",
     "react-router-dom": "^7.15.1",
+    "react-youtube": "^10.1.0",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {

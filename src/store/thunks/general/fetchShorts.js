@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../../api/instance";
+import { instance } from "../../../api/instances/instance";
 
 export const fetchShortsTC = createAsyncThunk(
   "shorts/fetchShorts",
@@ -11,9 +11,9 @@ export const fetchShortsTC = createAsyncThunk(
           type: "video",
           videoDuration: "short",
           q: query,
-          regionCode: "US",
+          regionCode: "RU",
           relevanceLanguage: "ru",
-          maxResults: 12,
+          maxResults: 20,
           pageToken,
         },
       });

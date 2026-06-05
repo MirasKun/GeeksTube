@@ -8,13 +8,12 @@ import LikedVideos from "../pages/LikedVideos";
 import Shorts from "../pages/Shorts";
 import Watch from "../pages/Watch";
 import SearchResultsPage from "../pages/SearchResultsPage";
-import { toggleSidebar } from "../store/slices/sidebarSlice";
+import { toggleSidebar } from "../store/slices/spec/sidebarSlice";
 
 const App = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((s) => s.sidebarSlice.isOpen);
   const location = useLocation();
-
   return (
     <div className="flex flex-col h-screen bg-[#0F0F0F] overflow-hidden font-sans">
       <YouTubeHeader toggleSidebar={() => dispatch(toggleSidebar())} />
