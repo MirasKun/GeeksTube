@@ -9,6 +9,7 @@ import Shorts from "../pages/Shorts";
 import Watch from "../pages/Watch";
 import SearchResultsPage from "../pages/SearchResultsPage";
 import { toggleSidebar } from "../store/slices/spec/sidebarSlice";
+import ChannelPage from '../pages/ChannelPage'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const App = () => {
               <Route path="/shorts" element={<Shorts />} />
               <Route path="/watch/:videoId" element={<Watch />} />
               <Route path="/results" element={<SearchResultsPage />} />
+              <Route path="/channel/:channelId" element={<ChannelPage />} />
             </Routes>
           </div>
         </main>

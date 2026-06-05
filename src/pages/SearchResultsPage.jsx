@@ -16,7 +16,8 @@ const SearchResultsPage = () => {
   );
 
   useEffect(() => {
-    if (query.trim()) dispatch(fetchSearchResultsTC(query));
+    if (!query.trim()) return;
+    dispatch(fetchSearchResultsTC(query));
   }, [query, dispatch]);
 
   return (

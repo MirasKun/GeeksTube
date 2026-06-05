@@ -76,7 +76,7 @@ const HomePage = () => {
       )}
 
       {error && (
-        <p className="text-center text-red-400 py-4">Ошибка загрузки видео</p>
+        <p className="text-center text-red-400 py-4">{error}</p>
       )}
 
       <div ref={loaderRef} className="h-10" />

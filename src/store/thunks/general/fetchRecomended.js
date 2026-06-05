@@ -16,7 +16,11 @@ export const fetchRecomendedVideosTC = createAsyncThunk(
       });
       return res.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(
+        error.response?.data?.error?.message ||
+          error.message ||
+          "Ошибка загрузки видео",
+      );
     }
   },
 );
