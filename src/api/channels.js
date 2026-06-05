@@ -1,4 +1,4 @@
-import { instance } from "./instance";
+import { instance } from "./instances/instance";
 
 const CHANNEL_PARTS = "snippet,statistics,contentDetails";
 export const PLAYLIST_PAGE_SIZE = 50;
