@@ -16,7 +16,7 @@ const ShortsPlayer = ({ videoId, onNext, onPrev }) => {
 
   return (
     <div className="flex justify-center">
-      <div className="flex h-[80vh] rounded-xl overflow-hidden bg-black">
+      <div className="flex w-[80vh] h-[85vh] rounded-xl overflow-hidden bg-black">
         <YouTube
           key={videoId}
           videoId={videoId}

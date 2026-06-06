@@ -3,13 +3,16 @@ import VideoPlayer from "./VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchVideoByIdTC } from "../store/thunks/fetchVideoById";
-import VideoGrid from "../components/videos/VideoGrid";
+import WatchVideoCard from "../components/videos/WatchVideoCard";
+import VideoCard from "../components/videos/VideoCard";
+import WatchVideoGrid from "../components/videos/WatchVideoGrid";
 
 const Watch = () => {
   const dispatch = useDispatch();
   const { videoId } = useParams();
   const { searchVideoId } = useSearchParams();
   const { video, loading, error } = useSelector((s) => s.videoByIdSlice);
+
 
   useEffect(() => {
     dispatch(fetchVideoByIdTC(videoId));
@@ -112,7 +115,7 @@ const Watch = () => {
                   </div>
                 </div>
               </div> */}
-              <VideoGrid/>
+              <WatchVideoGrid/>
             </div>
           </div>
         </div>
