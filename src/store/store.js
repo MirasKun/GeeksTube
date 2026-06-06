@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import recomendedSlice from "./slices/recomendedSlice";
+import recomendedSlice from "./slices/general/recomendedSlice";
 import authSlice from "./slices/authSlice";
-import searchQuerySlice from "./slices/searchQuerySlice";
-import sidebarSlice from "./slices/sidebarSlice";
-import shortsSlice from "./slices/shortsSlice";
-import videoByIdSlice from "./slices/videoByIdSlice";
+import searchQuerySlice from "./slices/spec/searchQuerySlice";
+import sidebarSlice from "./slices/spec/sidebarSlice";
+import shortsSlice from "./slices/general/shortsSlice";
+import videoByIdSlice from "./slices/spec/videoByIdSlice";
+import channelSlice from "./slices/channelSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     sidebarSlice,
     shortsSlice,
     videoByIdSlice,
+    channelSlice,
   },
 });

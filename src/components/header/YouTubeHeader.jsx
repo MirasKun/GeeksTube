@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { toggleSidebar } from "../../store/slices/sidebarSlice";
+import { toggleSidebar } from "../../store/slices/spec/sidebarSlice";
 import Logo from "./Logo";
-import SearchBar from "./SearchBar";
-import NavActions from "./NavActions";
-import FilterBar from "./FilterBar";
+import SearchBar from "./interactive/SearchBar";
+import NavActions from "./interactive/NavActions";
+import FilterBar from "./interactive/FilterBar";
 
 const YouTubeHeader = () => {
   const dispatch = useDispatch();
