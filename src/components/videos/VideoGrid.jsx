@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import VideoCard from "./VideoCard";
+import VideoCard from "./cards/VideoCard";
 import { useLocation } from "react-router-dom";
 
 const VideoGrid = () => {

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../../api/instance";
+import { instance } from "../../../api/instances/instance";
 
 export const fetchShortsTC = createAsyncThunk(
   "shorts/fetchShorts",

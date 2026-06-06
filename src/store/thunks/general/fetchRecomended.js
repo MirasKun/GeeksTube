@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../../api/instance";
+import { instance } from "../../../api/instances/instance";
 
 export const fetchRecomendedVideosTC = createAsyncThunk(
   "thunk/fetchRecomendedVideos",
@@ -16,7 +16,11 @@ export const fetchRecomendedVideosTC = createAsyncThunk(
       });
       return res.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(
+        error.response?.data?.error?.message ||
+          error.message ||
+          "Ошибка загрузки видео",
+      );
     }
   },
 );

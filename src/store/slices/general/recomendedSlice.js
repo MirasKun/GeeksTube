@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchRecomendedVideosTC } from "../thunks/fetchRecomended";
+import { fetchRecomendedVideosTC } from "../../thunks/general/fetchRecomended";
 
 const initialState = {
   videos: [],
@@ -31,7 +31,7 @@ const recomendedSlice = createSlice({
       }),
       builder.addCase(fetchRecomendedVideosTC.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message;
       }));
   },
 });

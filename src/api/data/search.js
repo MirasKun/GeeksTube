@@ -1,4 +1,4 @@
-import { instance } from "./instance";
+import { instance } from "../instances/instance";
 
 export const getSearchResults = (searchQuery) =>
   instance.get("/search", {
