@@ -6,6 +6,8 @@ const FilterBar = () => {
   const [activeFilter, setActiveFilter] = useState("Все");
 
   return (
+    <div>
+
     <div className="flex px-4 py-2 gap-3">
       {FILTERS.map((filter) => (
         <button
@@ -20,6 +22,7 @@ const FilterBar = () => {
           {filter}
         </button>
       ))}
+    </div>
     </div>
   );
 };

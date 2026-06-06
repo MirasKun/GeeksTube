@@ -10,7 +10,7 @@ const Logo = ({ onToggleSidebar }) => (
     </button>
     <div className="flex items-center gap-1">
       <Link to='/'><img src="/header/YouTube.svg" alt="YouTube" className="w-8 h-8" /></Link>
-      <Link to="/"><h1 className="text-white text-xl font-semibold">YouTube</h1></Link>
+      <Link to="/"><h1 className="text-white text-xl font-semibold">GeeksTube</h1></Link>
       
     </div>
   </div>

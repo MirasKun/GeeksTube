@@ -10,6 +10,7 @@ import Watch from "../pages/Watch";
 import SearchResultsPage from "../pages/SearchResultsPage";
 import { toggleSidebar } from "../store/slices/spec/sidebarSlice";
 import ChannelPage from '../pages/ChannelPage'
+import FilterBar from "../components/header/interactive/FilterBar";
 
 const App = () => {
   const dispatch = useDispatch();
