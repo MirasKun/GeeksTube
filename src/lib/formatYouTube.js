@@ -21,8 +21,24 @@ export const formatViews = (viewCount) => {
 };
 
 export const formatSubscribers = (count) => {
-  if (!count) return "0 подписчиков";
-  return `${formatCount(count)} подписчиков`;
+
+  const num = Number(count);
+  if (!num) return "0 подписчиков";
+
+  const formatted = formatCount(num);
+
+
+  if (num >= 1000) return `${formatted} подписчиков`;
+
+
+  const lastDigit = num % 10;
+  const lastTwoDigits = num % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return `${num} подписчиков`;
+  if (lastDigit === 1) return `${num} подписчик`;
+  if (lastDigit >= 2 && lastDigit <= 4) return `${num} подписчика`;
+
+  return `${num} подписчиков`;
 };
 
 

@@ -166,15 +166,6 @@ const ChannelPage = () => {
                 {videosError || "На этом канале пока нет доступных видео"}
               </p>
             )}
-            <div className="mt-4 flex justify-end">
-              <button
-                type="button"
-                onClick={() => dispatch(setChannelTab("videos"))}
-                className="text-sm font-medium text-[#3ea6ff] hover:underline"
-              >
-                Смотреть все →
-              </button>
-            </div>
           </>
         )}
 
@@ -245,7 +236,6 @@ const ChannelPage = () => {
             </h2>
             {!searchQuery && (
               <p className="mb-4 text-sm text-[#aaaaaa]">
-                Введите запрос в поле выше, чтобы найти видео на этом канале.
               </p>
             )}
             {searchResults.length > 0 && (
