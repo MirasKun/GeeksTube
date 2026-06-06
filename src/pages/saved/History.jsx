@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import VideoCard from "../components/videos/cards/VideoCard";
+import VideoCard from "../../components/videos/cards/VideoCard";
 
 const History = () => {
   useEffect(() => {

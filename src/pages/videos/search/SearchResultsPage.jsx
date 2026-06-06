@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSearchResultsTC } from "../store/thunks/spec/fetchSearchResults";
-import SearchResultCard from "../components/videos/cards/SearchResultCard";
+import { fetchSearchResultsTC } from "../../../store/thunks/spec/video/fetchSearchResults";
+import SearchResultCard from "../../../components/videos/cards/SearchResultCard";
 import { Flex, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 

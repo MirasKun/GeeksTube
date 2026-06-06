@@ -3,7 +3,7 @@ import {
   fetchChannelHomeTC,
   fetchChannelVideosTC,
   searchInChannelTC,
-} from "../thunks/channelThunks";
+} from "../thunks/spec/channel/channelThunks";
 
 const appendUniqueVideos = (existing, incoming) => {
   const ids = new Set(existing.map((video) => video.id));

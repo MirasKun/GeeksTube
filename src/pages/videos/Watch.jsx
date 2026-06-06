@@ -1,10 +1,9 @@
 import { useParams, useSearchParams } from "react-router-dom";
-import VideoPlayer from "../components/players/VideoPlayer";
+import VideoPlayer from "../../components/players/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import WatchVideoCard from "../components/videos/WatchVideoCard";
-import WatchVideoGrid from "../components/videos/WatchVideoGrid";
-import { fetchVideoByIdTC } from "../store/thunks/spec/fetchVideoById";
+import WatchVideoGrid from "../../components/videos/WatchVideoGrid";
+import { fetchVideoByIdTC } from "../../store/thunks/spec/video/fetchVideoById";
 
 const Watch = () => {
   const dispatch = useDispatch();

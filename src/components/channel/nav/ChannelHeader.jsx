@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { formatCount, formatSubscribers } from "../../lib/formatYouTube";
-import { toggleChannelSubscription } from "../../store/slices/channelSlice";
-
+import { formatCount, formatSubscribers } from "../../../lib/formatYouTube";
+import { toggleChannelSubscription } from "../../../store/slices/channelSlice";
 
 const ChannelHeader = ({ channel }) => {
   const dispatch = useDispatch();

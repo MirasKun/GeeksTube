@@ -6,8 +6,8 @@ import {
   itemsToVideos,
   PLAYLIST_PAGE_SIZE,
   searchChannelVideos,
-} from "../../api/channels";
-import { getYouTubeApiErrorMessage } from "../../lib/youtubeApiError";
+} from "../../../../api/channels";
+import { getYouTubeApiErrorMessage } from "../../../../lib/youtubeApiError";
 
 const loadPlaylistPage = async ({ uploadsPlaylistId, pageToken = "" }) => {
   const res = await getPlaylistItems({
@@ -130,7 +130,10 @@ export const fetchChannelHomeTC = createAsyncThunk(
         nextPageToken,
       };
     } catch (error) {
-      const message = getYouTubeApiErrorMessage(error, "Ошибка загрузки канала");
+      const message = getYouTubeApiErrorMessage(
+        error,
+        "Ошибка загрузки канала",
+      );
       return rejectWithValue(message || "Ошибка загрузки канала");
     }
   },

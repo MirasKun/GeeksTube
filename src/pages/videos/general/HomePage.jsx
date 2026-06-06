@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecomendedVideosTC } from "../store/thunks/general/fetchRecomended";
-import VideoGrid from "../components/videos/VideoGrid";
+import { fetchRecomendedVideosTC } from "../../../store/thunks/general/fetchRecomended";
+import VideoGrid from "../../../components/videos/VideoGrid";
 import { Flex, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 

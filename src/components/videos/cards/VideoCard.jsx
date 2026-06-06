@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { memo } from "react";
 
 const VideoCard = memo(({ video }) => {
-  if (!video) return null;
   const { snippet, statistics } = video;
   const thumbnail =
     snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url;
@@ -22,6 +21,7 @@ const VideoCard = memo(({ video }) => {
     ];
     localStorage.setItem("watch_history", JSON.stringify(updated));
   }, [video]);
+  if (!video) return null;
 
   return (
     <Link to={`/watch/${video.id}`} className="block" onClick={saveToHistory}>
