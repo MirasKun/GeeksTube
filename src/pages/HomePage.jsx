@@ -48,7 +48,6 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* Обманка для ботов */}
       <h1 className="sr-only">
         GeeksTube - платформа для просмотра и обмена видео
       </h1>
