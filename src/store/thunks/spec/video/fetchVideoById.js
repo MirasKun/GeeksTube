@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../../../api/instances/instance";
+import { instance } from "../../../../api/instances/instance";
 
 export const fetchVideoByIdTC = createAsyncThunk(
   "thunk/fetchVideosById",

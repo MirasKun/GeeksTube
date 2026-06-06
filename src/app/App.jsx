@@ -2,14 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import YouTubeHeader from "../components/header/YouTubeHeader";
 import Sidebar from "../components/sidebar/Sidebar";
-import HomePage from "../pages/HomePage";
-import History from "../pages/History";
-import LikedVideos from "../pages/LikedVideos";
-import Shorts from "../pages/Shorts";
-import Watch from "../pages/Watch";
-import SearchResultsPage from "../pages/SearchResultsPage";
+import HomePage from "../pages/videos/general/HomePage";
+import History from "../pages/saved/History";
+import LikedVideos from "../pages/saved/LikedVideos";
+import Shorts from "../pages/videos/shorts/Shorts";
+import Watch from "../pages/videos/Watch";
+import SearchResultsPage from "../pages/videos/search/SearchResultsPage";
 import { toggleSidebar } from "../store/slices/spec/sidebarSlice";
-import ChannelPage from '../pages/ChannelPage'
+import ChannelPage from '../pages/channel/ChannelPage'
 
 const App = () => {
   const dispatch = useDispatch();

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { fetchShortsTC } from "../store/thunks/general/fetchShorts";
-import { resetShorts } from "../store/slices/general/shortsSlice";
-import ShortsPlayer from "../components/players/ShortsPlayer";
+import { fetchShortsTC } from "../../../store/thunks/general/fetchShorts";
+import { resetShorts } from "../../../store/slices/general/shortsSlice";
+import ShortsPlayer from "../../../components/players/ShortsPlayer";
 
 const Shorts = () => {
   const dispatch = useDispatch();

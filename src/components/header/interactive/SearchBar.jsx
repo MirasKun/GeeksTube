@@ -22,8 +22,8 @@ const SearchBarInner = ({ defaultQuery = "" }) => {
 
   useEffect(() => {
     if (!isFocused || !searchQuery.trim()) {
-      setSuggestions([]);
-      return;
+      const t = setTimeout(() => setSuggestions([]), 0);
+      return () => clearTimeout(t);
     }
 
     const timer = setTimeout(async () => {

@@ -3,21 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Flex, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import ChannelHeader from "../components/channel/ChannelHeader";
-import ChannelTabs from "../components/channel/ChannelTabs";
-import ChannelVideoRow from "../components/channel/ChannelVideoRow";
-import ChannelVideoCard from "../components/channel/ChannelVideoCard";
+import ChannelHeader from "../../components/channel/nav/ChannelHeader";
+import ChannelTabs from "../../components/channel/nav/ChannelTabs";
+import ChannelVideoRow from "../../components/channel/layout/ChannelVideoRow";
+import ChannelVideoCard from "../../components/channel/layout/ChannelVideoCard";
 import {
   hydrateSubscriptions,
   resetChannelState,
   setChannelTab,
   setVideosView,
-} from "../store/slices/channelSlice";
+} from "../../store/slices/channelSlice";
 import {
   fetchChannelHomeTC,
   fetchChannelVideosTC,
   searchInChannelTC,
-} from "../store/thunks/channelThunks";
+} from "../../store/thunks/spec/channel/channelThunks";
 
 const ChannelPage = () => {
   const { channelId } = useParams();

@@ -3,7 +3,7 @@ import {
   clearChannelSearch,
   setChannelSearchQuery,
   setChannelTab,
-} from "../../store/slices/channelSlice";
+} from "../../../store/slices/channelSlice";
 
 const TABS = [
   { id: "home", label: "Главная" },
@@ -45,7 +45,11 @@ const ChannelTabs = ({ onSearch }) => {
                 }`}
                 aria-label="Поиск по каналу"
               >
-                <img src="/header/Search.svg" alt="" className="h-5 w-5 invert" />
+                <img
+                  src="/header/Search.svg"
+                  alt=""
+                  className="h-5 w-5 invert"
+                />
               </button>
             );
           }

@@ -1,6 +1,6 @@
 import { memo, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { formatViews } from "../../lib/formatYouTube";
+import { formatViews } from "../../../lib/formatYouTube";
 
 const ChannelVideoCard = memo(({ video, compact = false }) => {
   const snippet = video?.snippet;
