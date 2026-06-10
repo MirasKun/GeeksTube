@@ -19,7 +19,9 @@ youtubePrivateInstance.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("youtube_google_token");
-      window.location.reload();
+      if (!error.config?.skipAuthReload) {
+        window.location.reload();
+      }
     }
 
     return Promise.reject(error);

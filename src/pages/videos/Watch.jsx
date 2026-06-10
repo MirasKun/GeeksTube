@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import VideoPlayer from "../../components/players/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import WatchVideoGrid from "../../components/videos/WatchVideoGrid";
 import { fetchVideoByIdTC } from "../../store/thunks/spec/video/fetchVideoById";
 import { Link } from "react-router-dom";
-import {  useState } from "react";
 import { formatSubscribers } from "../../lib/formatYouTube";
 import { fetchChannelHomeTC } from "../../store/thunks/spec/channel/channelThunks";
+import CommentsSection from "../../components/videos/CommentsSection";
 
 
 const Watch = () => {
@@ -47,7 +47,6 @@ const Watch = () => {
       ? `${description.slice(0, 80)}`
       : description;
 
-  console.log(video);
   return (
     <div>
       <div className="w-full max-w-450 px-4 py-6">
@@ -148,6 +147,8 @@ const Watch = () => {
                 </p>
               )}
             </div>
+
+            <CommentsSection videoId={videoId} initialCommentCount={video?.statistics?.commentCount} />
           </div>
 
           <div className="w-400">

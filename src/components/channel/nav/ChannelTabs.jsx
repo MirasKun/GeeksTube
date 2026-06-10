@@ -8,7 +8,6 @@ import {
 const TABS = [
   { id: "home", label: "Главная" },
   { id: "videos", label: "Видео" },
-
 ];
 
 const ChannelTabs = ({ onSearch }) => {
@@ -34,27 +33,6 @@ const ChannelTabs = ({ onSearch }) => {
     <div className="top-0 z-20 border-b border-white/10 bg-[#0f0f0f] px-4 md:px-8">
       <div className="flex items-center gap-6 overflow-x-auto">
         {TABS.map((tab) => {
-          if (tab.icon === "search") {
-            return (
-              <button
-                key="search"
-                type="button"
-                onClick={() => handleTabClick("search")}
-                className={`flex h-12 shrink-0 items-center justify-center px-2 text-[#aaaaaa] hover:text-white ${
-                  activeTab === "search" ? "text-white" : ""
-                }`}
-                aria-label="Поиск по каналу"
-              >
-                <img
-                  src="/header/Search.svg"
-                  alt=""
-                  className="h-5 w-5 invert"
-                />
-                <img src="/header/Search.svg" alt="" className="h-5 w-5 " />
-              </button>
-            );
-          }
-
           const isActive = activeTab === tab.id;
 
           return (
