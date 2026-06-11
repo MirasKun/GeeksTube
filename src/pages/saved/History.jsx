@@ -66,6 +66,7 @@ const History = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-4 min-h-screen text-white bg-[#0F0F0F]">
+      <h1 className="sr-only">История просмотров пользователя - GeeksTube</h1>
       <h1 className="text-2xl font-bold mb-6">History</h1>
 
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-4 mb-6">

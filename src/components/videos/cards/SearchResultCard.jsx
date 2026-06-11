@@ -26,12 +26,13 @@ const SearchResultCard = ({ video }) => {
           </h3>
           <p className="text-gray-400 text-xs">
             <Link
-            to={`/channel/${snippet.channelId}`}
-            onClick={(e) => e.stopPropagation()}
-            className="text-gray-400 text-sm mt-1 block hover:text-white transition-colors"
-          >
-            {channel}
-          </Link> · {publishedAt}
+              to={`/channel/${snippet.channelId}`}
+              onClick={(e) => e.stopPropagation()}
+              className="text-gray-400 text-sm mt-1 block hover:text-white transition-colors"
+            >
+              {channel}
+            </Link>{" "}
+            · {publishedAt}
           </p>
           <p className="text-gray-500 text-sm line-clamp-2 mt-1">
             {description}
