@@ -8,34 +8,46 @@ import { Link } from "react-router-dom";
 import { formatSubscribers } from "../../lib/formatYouTube";
 import { fetchChannelHomeTC } from "../../store/thunks/spec/channel/channelThunks";
 import CommentsSection from "../../components/videos/CommentsSection";
-
-
+import { fetchVideoRatingTC } from "../../store/thunks/interactions/fetchVideoRating";
+import { rateVideoTC } from "../../store/thunks/interactions/rateVideo";
+import { checkSubscriptionTC } from "../../store/thunks/interactions/checkSubscription";
+import { toggleSubscriptionTC } from "../../store/thunks/interactions/toggleSubscription";
 const Watch = () => {
   const dispatch = useDispatch();
   const { videoId } = useParams();
   const { video } = useSelector((s) => s.videoByIdSlice);
   const { channel } = useSelector((state) => state.channelSlice);
+
+  const { currentRating, isSubscribed, subscriptionId } = useSelector(
+    (state) => state.interactionsSlice,
+  );
+
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const channelId = video?.snippet?.channelId;
+
+  const token = localStorage.getItem("youtube_google_token");
 
   useEffect(() => {
     if (channelId) {
       dispatch(fetchChannelHomeTC(channelId));
-    }
-  }, [channelId, dispatch]);
 
+      if (token) {
+        dispatch(checkSubscriptionTC(channelId));
+      }
+    }
+  }, [channelId, dispatch, token]);
 
   useEffect(() => {
     dispatch(fetchVideoByIdTC(videoId));
-  }, [dispatch, videoId]);
 
-  if (!video) {
-    return <div>Loading...</div>;
-  }
+    if (token) {
+      dispatch(fetchVideoRatingTC(videoId));
+    }
+  }, [dispatch, videoId, token]);
 
   const videoTitle = video?.snippet?.title;
   const channelTitle = video?.snippet?.channelTitle;
-  const likeCount = video?.statistics?.likeCount;
+  const originalLikeCount = Number(video?.statistics?.likeCount || 0);
   const viewCount = video?.statistics?.viewCount;
   const description = video?.snippet?.description;
   const avatarUrl =
@@ -47,8 +59,29 @@ const Watch = () => {
       ? `${description.slice(0, 80)}`
       : description;
 
+  let displayLikeCount = originalLikeCount;
+  if (currentRating === "like") {
+    displayLikeCount = originalLikeCount + 1;
+  }
+
+  const handleLike = () => {
+    const nextRating = currentRating === "like" ? "none" : "like";
+    dispatch(rateVideoTC({ videoId, rating: nextRating }));
+  };
+
+  const handleDislike = () => {
+    const nextRating = currentRating === "dislike" ? "none" : "dislike";
+    dispatch(rateVideoTC({ videoId, rating: nextRating }));
+  };
+
+  const handleSubscribe = () => {
+    if (!channelId) return;
+    dispatch(toggleSubscriptionTC({ channelId, isSubscribed, subscriptionId }));
+  };
+
   return (
     <div>
+      <h1 className="sr-only">Просмотр видео {videoTitle} - GeeksTube</h1>
       <div className="w-full max-w-450 px-4 py-6">
         <div className="flex gap-6">
           <div className="w-960">
@@ -77,29 +110,56 @@ const Watch = () => {
                   </div>
                 </Link>
 
-                <button className="bg-white text-black px-4 py-2 rounded-full">
-                  Подписаться
+                {}
+                <button
+                  onClick={handleSubscribe}
+                  className={`px-4 py-2 rounded-full font-medium transition-colors ${
+                    isSubscribed
+                      ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
+                      : "bg-white text-black hover:bg-zinc-200"
+                  }`}
+                >
+                  {isSubscribed ? "Вы подписаны" : "Подписаться"}
                 </button>
               </div>
+
               <div className="flex items-center gap-2">
+                {}
                 <div className="flex items-center bg-zinc-800 gap-1.5 px-5 py-2 rounded-full">
-                  <button className="flex items-center gap-2 text-white">
+                  <button
+                    onClick={handleLike}
+                    className={`flex items-center gap-2 transition-colors ${
+                      currentRating === "like"
+                        ? "text-blue-400"
+                        : "text-white hover:text-gray-300"
+                    }`}
+                  >
                     <img
-                      className="w-7 h-7"
+                      className={`w-7 h-7 ${currentRating === "like" ? "brightness-150" : ""}`}
                       src="/Watch/Like_YouTube.svg"
                       alt="Like"
                     />
-                    <p className="font-bold text-[15px]">{likeCount}</p>
+                    <p className="font-bold text-[15px]">{displayLikeCount}</p>
                   </button>
+
                   <div className="w-px h-5 bg-zinc-500" />
-                  <button className="flex items-center text-white">
+
+                  <button
+                    onClick={handleDislike}
+                    className={`flex items-center transition-colors ${
+                      currentRating === "dislike"
+                        ? "text-red-400"
+                        : "text-white hover:text-gray-300"
+                    }`}
+                  >
                     <img
-                      className="w-7 h-7"
+                      className={`w-7 h-7 ${currentRating === "dislike" ? "brightness-150" : ""}`}
                       src="/Watch/Dislike_YouTube.svg"
                       alt="dislike"
                     />
                   </button>
                 </div>
+
                 <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full">
                   <button className="flex items-center gap-1 text-white">
                     <img
@@ -148,14 +208,17 @@ const Watch = () => {
               )}
             </div>
 
-            <CommentsSection videoId={videoId} initialCommentCount={video?.statistics?.commentCount} />
+            <CommentsSection
+              videoId={videoId}
+              initialCommentCount={video?.statistics?.commentCount}
+            />
           </div>
 
           <div className="w-400">
             <h2 className="mb-3 text-white">Рекомендации</h2>
 
             <div className="grid grid-cols-1">
-              <WatchVideoGrid/>
+              <WatchVideoGrid />
             </div>
           </div>
         </div>
