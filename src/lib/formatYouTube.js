@@ -21,24 +21,24 @@ export const formatViews = (viewCount) => {
 };
 
 export const formatSubscribers = (count) => {
-  if (!count) return "0 подписчиков";
-  return `${formatCount(count)} подписчиков`;
+
+  const num = Number(count);
+  if (!num) return "0 подписчиков";
+
+  const formatted = formatCount(num);
+
+
+  if (num >= 1000) return `${formatted} подписчиков`;
+
+
+  const lastDigit = num % 10;
+  const lastTwoDigits = num % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return `${num} подписчиков`;
+  if (lastDigit === 1) return `${num} подписчик`;
+  if (lastDigit >= 2 && lastDigit <= 4) return `${num} подписчика`;
+
+  return `${num} подписчиков`;
 };
 
 
-export const parseIsoDuration = (isoDuration) => {
-  if (!isoDuration) return "";
-
-  const match = isoDuration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-  if (!match) return "";
-
-  const hours = Number(match[1] || 0);
-  const minutes = Number(match[2] || 0);
-  const seconds = Number(match[3] || 0);
-
-  if (hours > 0) {
-    return `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-  }
-
-  return `${minutes}:${String(seconds).padStart(2, "0")}`;
-};

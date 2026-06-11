@@ -43,42 +43,53 @@ const ChannelPage = () => {
   } = useSelector((state) => state.channelSlice);
 
   useEffect(() => {
-  onScrollEndRef.current = () => {
-    if (!channelId) return;
+    onScrollEndRef.current = () => {
+      if (!channelId) return;
 
-    const canLoadVideos =
-      (activeTab === "home" ||
-        (activeTab === "videos" && videosView === "latest")) &&
-      allVideos.length > 0 &&
-      nextPageToken.videos &&
-      !loading.videos;
+      const canLoadVideos =
+        (activeTab === "home" ||
+          (activeTab === "videos" && videosView === "latest")) &&
+        allVideos.length > 0 &&
+        nextPageToken.videos &&
+        !loading.videos;
 
-    if (canLoadVideos) {
-      dispatch(
-        fetchChannelVideosTC({
-          pageToken: nextPageToken.videos,
-          uploadsPlaylistId,
-        }),
-      );
-      return;
-    }
+      if (canLoadVideos) {
+        dispatch(
+          fetchChannelVideosTC({
+            pageToken: nextPageToken.videos,
+            uploadsPlaylistId,
+          }),
+        );
+        return;
+      }
 
-    if (
-      activeTab === "search" &&
-      searchResults.length > 0 &&
-      nextPageToken.search &&
-      !loading.search
-    ) {
-      dispatch(
-        searchInChannelTC({
-          channelId,
-          query: searchQuery,
-          pageToken: nextPageToken.search,
-        }),
-      );
-    }
-};
-  }, [activeTab, videosView, allVideos, nextPageToken, loading, searchResults, searchQuery, channelId, dispatch, uploadsPlaylistId]);
+      if (
+        activeTab === "search" &&
+        searchResults.length > 0 &&
+        nextPageToken.search &&
+        !loading.search
+      ) {
+        dispatch(
+          searchInChannelTC({
+            channelId,
+            query: searchQuery,
+            pageToken: nextPageToken.search,
+          }),
+        );
+      }
+    };
+  }, [
+    activeTab,
+    videosView,
+    allVideos,
+    nextPageToken,
+    loading,
+    searchResults,
+    searchQuery,
+    channelId,
+    dispatch,
+    uploadsPlaylistId,
+  ]);
   useEffect(() => {
     dispatch(hydrateSubscriptions());
   }, [dispatch]);
@@ -141,6 +152,7 @@ const ChannelPage = () => {
 
   return (
     <div className="-m-4 min-h-full bg-[#0f0f0f] text-white">
+      <h1 className="sr-only">Канал {channel?.snippet?.title} - GeeksTube</h1>
       <ChannelHeader channel={channel} />
       <ChannelTabs onSearch={handleSearch} />
 
@@ -166,24 +178,12 @@ const ChannelPage = () => {
                 {videosError || "На этом канале пока нет доступных видео"}
               </p>
             )}
-            <div className="mt-4 flex justify-end">
-              <button
-                type="button"
-                onClick={() => dispatch(setChannelTab("videos"))}
-                className="text-sm font-medium text-[#3ea6ff] hover:underline"
-              >
-                Смотреть все →
-              </button>
-            </div>
           </>
         )}
 
         {activeTab === "videos" && (
           <>
-            <h2 className="mb-2 text-xl font-semibold">
-              Видео
-              
-            </h2>
+            <h2 className="mb-2 text-xl font-semibold">Видео</h2>
             <div className="mb-6 flex gap-2">
               <button
                 type="button"
@@ -243,11 +243,7 @@ const ChannelPage = () => {
             <h2 className="mb-6 text-xl font-semibold">
               {searchQuery ? `Результаты: «${searchQuery}»` : "Поиск по каналу"}
             </h2>
-            {!searchQuery && (
-              <p className="mb-4 text-sm text-[#aaaaaa]">
-                Введите запрос в поле выше, чтобы найти видео на этом канале.
-              </p>
-            )}
+            {!searchQuery && <p className="mb-4 text-sm text-[#aaaaaa]"></p>}
             {searchResults.length > 0 && (
               <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {searchResults.map((video) => (

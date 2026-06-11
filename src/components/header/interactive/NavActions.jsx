@@ -1,20 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { Button } from "antd";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../../firebase/firebaseConfig";
+import { useSelector } from "react-redux";
 import { loginWithGoogle, logoutUser } from "../../../store/thunks/auth";
 
 const NavActions = () => {
-  const [user, setUser] = useState(null);
-  const [authLoading, setAuthLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setAuthLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
+  const { user, loading: authLoading } = useSelector((s) => s.authSlice);
 
   const handleLogin = async () => {
     try {
@@ -24,13 +14,6 @@ const NavActions = () => {
     }
   };
 
-  // const handleLeftClick = useCallback(() => {
-  //   message.info({
-  //     content: "Это вы",
-  //     duration: 2,
-  //     style: { marginTop: "10px" },
-  //   });
-  // }, []);
 
   const handleRightClick = useCallback(async (e) => {
     e.preventDefault();
