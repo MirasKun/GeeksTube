@@ -10,18 +10,21 @@ import Watch from "../pages/videos/Watch";
 import SearchResultsPage from "../pages/videos/search/SearchResultsPage";
 import { toggleSidebar } from "../store/slices/spec/sidebarSlice";
 import ChannelPage from "../pages/channel/ChannelPage";
+import FilterBar from "../components/header/interactive/FilterBar";
 
 const App = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((s) => s.sidebarSlice.isOpen);
   const location = useLocation();
+
   return (
     <div className="flex flex-col h-screen bg-[#0F0F0F] overflow-hidden font-sans">
       <YouTubeHeader toggleSidebar={() => dispatch(toggleSidebar())} />
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <Sidebar isOpen={isOpen} />
-        <main className="flex-1 overflow-y-auto text-white p-4">
-          <div key={location.pathname}>
+        <main className="flex-1 overflow-hidden flex flex-col text-white p-2 gap-4">
+            <FilterBar />
+          <div key={location.pathname} className="flex-1 overflow-y-auto pr-1">
             <Routes location={location}>
               <Route path="/" element={<HomePage />} />
               <Route path="/history" element={<History />} />
