@@ -138,7 +138,7 @@ const SearchBarInner = ({ defaultQuery = "" }) => {
     isFocused && searchQuery.trim() && suggestions.length > 0;
 
   return (
-    <div className="relative flex items-center gap-3 w-full max-w-[600px] mx-4">
+    <div className="relative flex items-center gap-3 w-full max-w-150 mx-4">
       <div className="relative flex w-full">
         <div
           className={`flex items-center w-full border px-4 h-10 gap-1.5 transition-all ${

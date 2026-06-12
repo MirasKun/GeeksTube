@@ -14,6 +14,7 @@ import Watch from "../pages/videos/Watch";
 import SearchResultsPage from "../pages/videos/search/SearchResultsPage";
 import { toggleSidebar } from "../store/slices/spec/sidebarSlice";
 import ChannelPage from "../pages/channel/ChannelPage";
+import FilterBar from "../components/header/interactive/FilterBar";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -52,16 +53,19 @@ const App = () => {
       <YouTubeHeader toggleSidebar={() => dispatch(toggleSidebar())} />
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <Sidebar isOpen={isOpen} />
-        <main ref={mainRef} className="flex-1 overflow-y-auto text-white p-4">
-          <Routes location={location}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/liked-videos" element={<LikedVideos />} />
-            <Route path="/shorts" element={<Shorts />} />
-            <Route path="/watch/:videoId" element={<Watch />} />
-            <Route path="/results" element={<SearchResultsPage />} />
-            <Route path="/channel/:channelId" element={<ChannelPage />} />
-          </Routes>
+        <main className="flex-1 overflow-hidden flex flex-col text-white p-2 gap-4">
+            <FilterBar />
+          <div key={location.pathname} className="flex-1 overflow-y-auto pr-1">
+            <Routes location={location}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/liked-videos" element={<LikedVideos />} />
+              <Route path="/shorts" element={<Shorts />} />
+              <Route path="/watch/:videoId" element={<Watch />} />
+              <Route path="/results" element={<SearchResultsPage />} />
+              <Route path="/channel/:channelId" element={<ChannelPage />} />
+            </Routes>
+          </div>
         </main>
       </div>
     </div>
