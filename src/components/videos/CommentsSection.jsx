@@ -97,15 +97,15 @@ const CommentsSection = ({ videoId, initialCommentCount }) => {
   const displayCount = comments.length > 0 ? comments.length : (initialCommentCount || 0);
 
   return (
-    <div className="mt-6 text-white border-t border-zinc-800 pt-6">
-      <div className="flex items-center gap-8 mb-6">
-        <h2 className="text-xl font-bold font-sans">
+    <div className="mt-4 sm:mt-6 text-white border-t border-zinc-800 pt-4 sm:pt-6">
+      <div className="flex items-center gap-8 mb-4 sm:mb-6">
+        <h2 className="text-lg sm:text-xl font-bold font-sans">
           {formatCount(displayCount)} комментариев
         </h2>
       </div>
 
-      <div className="flex gap-4 mb-8">
-        <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
+      <div className="flex gap-3 sm:gap-4 mb-6 sm:mb-8">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
           {user && user.photoURL ? (
             <img
               src={user.photoURL}
@@ -131,7 +131,7 @@ const CommentsSection = ({ videoId, initialCommentCount }) => {
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               onFocus={handleFocus}
-              className="w-full bg-transparent text-white border-b border-zinc-700 py-2 focus:outline-none focus:border-white transition-colors text-sm"
+              className="w-full bg-transparent text-white border-b border-zinc-700 py-2 focus:outline-none focus:border-white transition-colors text-xs sm:text-sm"
             />
           </div>
 

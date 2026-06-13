@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-const FILTERS = ["Все", "Музыка", "Новое для вас"];
+const FILTERS = [];
 
 const FilterBar = () => {
   const [activeFilter, setActiveFilter] = useState("Все");
 
   return (
-      <div className="flex bg-[#0f0f0f] py-1 gap-3">
+      <div className="flex bg-[#0f0f0f] py-1 gap-3 overflow-x-auto [ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {FILTERS.map((filter) => (
             <button
               key={filter}

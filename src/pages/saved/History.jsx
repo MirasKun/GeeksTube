@@ -65,9 +65,9 @@ const History = () => {
   }, [historyItems, sortOrder, searchQuery]);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 min-h-screen text-white bg-[#0F0F0F]">
+    <div className="max-w-7xl mx-auto p-3 sm:p-4 min-h-screen text-white bg-[#0F0F0F]">
       <h1 className="sr-only">История просмотров пользователя - GeeksTube</h1>
-      <h1 className="text-2xl font-bold mb-6">History</h1>
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">History</h1>
 
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-4 mb-6">
         <div className="flex flex-wrap gap-2">
@@ -152,14 +152,14 @@ const History = () => {
           История просмотров пуста или совпадений не найдено
         </div>
       ) : (
-        <div className="relative pl-8 border-l border-zinc-800 ml-4 flex flex-col gap-8">
+        <div className="relative pl-6 sm:pl-8 border-l border-zinc-800 ml-2 sm:ml-4 flex flex-col gap-8">
           {groupedVideos.map(([dateLabel, videos]) => (
             <div key={dateLabel} className="relative">
-              <div className="absolute -left-[38px] top-1.5 w-4 h-4 rounded-full bg-[#0F0F0F] border-2 border-red-600" />
-              <h2 className="text-sm font-semibold text-zinc-400 mb-4">
+              <div className="absolute -left-[26px] sm:-left-[38px] top-1.5 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#0F0F0F] border-2 border-red-600" />
+              <h2 className="text-xs sm:text-sm font-semibold text-zinc-400 mb-4">
                 {dateLabel}
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4">
                 {videos.map((video) => (
                   <VideoCard
                     key={`${video.id}-${video.watchedAt}`}

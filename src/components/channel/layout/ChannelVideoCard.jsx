@@ -29,7 +29,7 @@ const ChannelVideoCard = memo(({ video, compact = false }) => {
     <Link
       to={`/watch/${videoId}`}
       onClick={saveToHistory}
-      className={`group block shrink-0 ${compact ? "w-72" : "w-full"}`}
+      className={`group block shrink-0 ${compact ? "w-56 sm:w-72" : "w-full"}`}
     >
       <div className="relative overflow-hidden rounded-xl bg-zinc-800">
         {thumbnail ? (

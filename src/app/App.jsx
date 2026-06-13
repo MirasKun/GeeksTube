@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
@@ -12,7 +12,7 @@ import LikedVideos from "../pages/saved/LikedVideos";
 import Shorts from "../pages/videos/shorts/Shorts";
 import Watch from "../pages/videos/Watch";
 import SearchResultsPage from "../pages/videos/search/SearchResultsPage";
-import { toggleSidebar } from "../store/slices/spec/sidebarSlice";
+import { toggleSidebar, closeSidebar } from "../store/slices/spec/sidebarSlice";
 import ChannelPage from "../pages/channel/ChannelPage";
 import FilterBar from "../components/header/interactive/FilterBar";
 
@@ -21,6 +21,18 @@ const App = () => {
   const isOpen = useSelector((s) => s.sidebarSlice.isOpen);
   const location = useLocation();
   const mainRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) dispatch(closeSidebar());
+  }, [isMobile, dispatch]);
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -41,7 +53,6 @@ const App = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
-  // Скроллим main контейнер наверх при каждой смене маршрута
   useEffect(() => {
     if (mainRef.current) {
       mainRef.current.scrollTo(0, 0);
@@ -50,12 +61,29 @@ const App = () => {
 
   return (
     <div className="flex flex-col h-screen bg-[#0F0F0F] overflow-hidden font-sans">
-      <YouTubeHeader toggleSidebar={() => dispatch(toggleSidebar())} />
+      <YouTubeHeader />
       <div className="flex flex-1 min-h-0 overflow-hidden">
-        <Sidebar isOpen={isOpen} />
-        <main className="flex-1 overflow-hidden flex flex-col text-white p-2 gap-4">
-            <FilterBar />
-          <div key={location.pathname} className="flex-1 overflow-y-auto pr-1">
+        {isMobile ? (
+          isOpen && (
+            <>
+              <div
+                className="fixed inset-0 bg-black/50 z-30"
+                onClick={() => dispatch(closeSidebar())}
+              />
+              <div className="fixed left-0 top-12 sm:top-14 bottom-0 z-40">
+                <Sidebar isOpen={true} />
+              </div>
+            </>
+          )
+        ) : (
+          <Sidebar isOpen={isOpen} />
+        )}
+        <main
+          ref={mainRef}
+          className="flex-1 overflow-y-auto flex flex-col text-white p-2 lg:p-4 gap-4"
+        >
+          <FilterBar />
+          <div key={location.pathname}>
             <Routes location={location}>
               <Route path="/" element={<HomePage />} />
               <Route path="/history" element={<History />} />

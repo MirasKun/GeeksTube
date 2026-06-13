@@ -73,12 +73,12 @@ const LikedVideos = () => {
   }, [likedVideos, activeFilter]);
 
   return (
-    <div className="flex flex-col gap-4 w-full py-4 min-h-screen px-6">
+    <div className="flex flex-col gap-4 w-full py-4 min-h-screen px-3 sm:px-6">
       {}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
-        <h1 className="text-2xl font-bold text-white">
+        <h1 className="text-xl sm:text-2xl font-bold text-white">
           Понравившиеся видео{" "}
-          <span className="text-zinc-400 text-lg font-normal">
+          <span className="text-zinc-400 text-base sm:text-lg font-normal">
             ({filteredVideos.length})
           </span>
         </h1>

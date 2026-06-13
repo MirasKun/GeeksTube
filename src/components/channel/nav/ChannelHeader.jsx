@@ -31,16 +31,16 @@ const ChannelHeader = ({ channel }) => {
 
   return (
     <header className="px-4 pb-2 pt-6 md:px-8">
-      <div className="flex gap-6">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start text-center sm:text-left">
         <img
           src={avatarUrl}
           alt={title}
-          className="h-[136px] w-[136px] shrink-0 rounded-full bg-zinc-800 object-cover"
+          className="h-24 w-24 sm:h-[136px] sm:w-[136px] shrink-0 rounded-full bg-zinc-800 object-cover"
         />
 
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-[36px] font-bold leading-tight text-white">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <h1 className="text-2xl sm:text-[36px] font-bold leading-tight text-white">
               {title}
             </h1>
           </div>
