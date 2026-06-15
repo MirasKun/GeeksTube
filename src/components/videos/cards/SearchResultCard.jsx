@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 
 const SearchResultCard = ({ video }) => {
   const { snippet } = video;
+  const id = video?.id;
+  const videoId = id?.videoId ?? id;
   const thumbnail = snippet?.thumbnails?.medium?.url;
   const title = snippet?.title;
   const channel = snippet?.channelTitle;
@@ -11,7 +13,7 @@ const SearchResultCard = ({ video }) => {
   );
 
   return (
-    <Link to={`/watch/${video.id}`} className="block">
+    <Link to={`/watch/${videoId}`} className="block">
       <div className="flex gap-4 cursor-pointer hover:bg-[#1a1a1a] rounded-xl p-2 transition-colors">
         <img
           src={thumbnail}
@@ -23,7 +25,14 @@ const SearchResultCard = ({ video }) => {
             {title}
           </h3>
           <p className="text-gray-400 text-xs">
-            {channel} · {publishedAt}
+            <Link
+              to={`/channel/${snippet.channelId}`}
+              onClick={(e) => e.stopPropagation()}
+              className="text-gray-400 text-sm mt-1 block hover:text-white transition-colors"
+            >
+              {channel}
+            </Link>{" "}
+            · {publishedAt}
           </p>
           <p className="text-gray-500 text-sm line-clamp-2 mt-1">
             {description}

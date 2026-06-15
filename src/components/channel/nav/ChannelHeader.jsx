@@ -7,6 +7,7 @@ const ChannelHeader = ({ channel }) => {
   const dispatch = useDispatch();
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
 
+
   const subscribedChannelIds = useSelector(
     (state) => state.channelSlice.subscribedChannelIds,
   );

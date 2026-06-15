@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchVideoByIdTC } from "../../thunks/spec/video/fetchVideoById";
 
 const initialState = {
-  video: [],
+  video: null,
   loading: false,
   error: null,
 };
@@ -15,6 +15,7 @@ const videoByIdSlice = createSlice({
       .addCase(fetchVideoByIdTC.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.video = null;
       })
       .addCase(fetchVideoByIdTC.fulfilled, (state, action) => {
         state.loading = false;

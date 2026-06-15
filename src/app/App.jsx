@@ -1,5 +1,9 @@
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
+import { setUser, clearUser, setLoading } from "../store/slices/authSlice";
 import YouTubeHeader from "../components/header/YouTubeHeader";
 import Sidebar from "../components/sidebar/Sidebar";
 import HomePage from "../pages/videos/general/HomePage";
@@ -11,11 +15,39 @@ import SearchResultsPage from "../pages/videos/search/SearchResultsPage";
 import { toggleSidebar } from "../store/slices/spec/sidebarSlice";
 import ChannelPage from "../pages/channel/ChannelPage";
 import FilterBar from "../components/header/interactive/FilterBar";
+import WatchLater from "../pages/saved/WatchLater";
 
 const App = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((s) => s.sidebarSlice.isOpen);
   const location = useLocation();
+  const mainRef = useRef(null);
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        dispatch(
+          setUser({
+            email: currentUser.email,
+            displayName: currentUser.displayName,
+            photoURL: currentUser.photoURL,
+            uid: currentUser.uid,
+          })
+        );
+      } else {
+        dispatch(clearUser());
+      }
+    });
+    return () => unsubscribe();
+  }, [dispatch]);
+
+  // Скроллим main контейнер наверх при каждой смене маршрута
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   return (
     <div className="flex flex-col h-screen bg-[#0F0F0F] overflow-hidden font-sans">
@@ -33,6 +65,7 @@ const App = () => {
               <Route path="/watch/:videoId" element={<Watch />} />
               <Route path="/results" element={<SearchResultsPage />} />
               <Route path="/channel/:channelId" element={<ChannelPage />} />
+              <Route path="/watch-later" element={<WatchLater/>}/>
             </Routes>
           </div>
         </main>
