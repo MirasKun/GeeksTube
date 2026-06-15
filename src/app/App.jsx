@@ -15,6 +15,7 @@ import SearchResultsPage from "../pages/videos/search/SearchResultsPage";
 import { toggleSidebar, closeSidebar } from "../store/slices/spec/sidebarSlice";
 import ChannelPage from "../pages/channel/ChannelPage";
 import FilterBar from "../components/header/interactive/FilterBar";
+import WatchLater from "../pages/saved/WatchLater";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -63,27 +64,10 @@ const App = () => {
     <div className="flex flex-col h-screen bg-[#0F0F0F] overflow-hidden font-sans">
       <YouTubeHeader />
       <div className="flex flex-1 min-h-0 overflow-hidden">
-        {isMobile ? (
-          isOpen && (
-            <>
-              <div
-                className="fixed inset-0 bg-black/50 z-30"
-                onClick={() => dispatch(closeSidebar())}
-              />
-              <div className="fixed left-0 top-12 sm:top-14 bottom-0 z-40">
-                <Sidebar isOpen={true} />
-              </div>
-            </>
-          )
-        ) : (
-          <Sidebar isOpen={isOpen} />
-        )}
-        <main
-          ref={mainRef}
-          className="flex-1 overflow-y-auto flex flex-col text-white p-2 lg:p-4 gap-4"
-        >
-          <FilterBar />
-          <div key={location.pathname}>
+        <Sidebar isOpen={isOpen} />
+        <main className="flex-1 overflow-hidden flex flex-col text-white p-2 gap-4">
+            <FilterBar />
+          <div key={location.pathname} className="flex-1 overflow-y-auto pr-1">
             <Routes location={location}>
               <Route path="/" element={<HomePage />} />
               <Route path="/history" element={<History />} />
@@ -92,6 +76,7 @@ const App = () => {
               <Route path="/watch/:videoId" element={<Watch />} />
               <Route path="/results" element={<SearchResultsPage />} />
               <Route path="/channel/:channelId" element={<ChannelPage />} />
+              <Route path="/watch-later" element={<WatchLater/>}/>
             </Routes>
           </div>
         </main>

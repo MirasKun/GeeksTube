@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import VideoPlayer from "../../components/players/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -12,11 +12,19 @@ import { fetchVideoRatingTC } from "../../store/thunks/interactions/fetchVideoRa
 import { rateVideoTC } from "../../store/thunks/interactions/rateVideo";
 import { checkSubscriptionTC } from "../../store/thunks/interactions/checkSubscription";
 import { toggleSubscriptionTC } from "../../store/thunks/interactions/toggleSubscription";
+import { addToWatchLaterTC } from "../../store/thunks/spec/watchLater/addToWatchLaterTC";
+import WatchLater from "../saved/WatchLater";
+
 const Watch = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { videoId } = useParams();
   const { video } = useSelector((s) => s.videoByIdSlice);
   const { channel } = useSelector((state) => state.channelSlice);
+
+  const watchLaterVideos = useSelector((state) => state.watchLater.videos);
+
+  console.log("Watch Later:", watchLaterVideos);
 
   const { currentRating, isSubscribed, subscriptionId } = useSelector(
     (state) => state.interactionsSlice,
@@ -164,10 +172,13 @@ const Watch = () => {
                     <p className="font-bold text-xs sm:text-sm hidden sm:block">Поделиться</p>
                   </button>
                 </div>
-                <div className="items-center bg-zinc-800 gap-1 px-2 sm:px-3 py-2 sm:py-2.5 rounded-full hidden sm:flex">
-                  <button className="flex items-center gap-1 text-white">
-                    <img src="/Watch/Save_YouTube.svg" alt="Save" />
-                    <p className="font-bold text-sm hidden sm:block">Сохранить</p>
+                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full">
+                  <button
+                    onClick={() => dispatch(addToWatchLaterTC())}
+                    className="flex items-center gap-1 text-white"
+                  >
+                    <img src="/Watch/Watch_later_YouTube.svg" alt="Save" />
+                    <p className=" font-bold">Смотреть позже</p>
                   </button>
                 </div>
                 <div className="flex items-center bg-zinc-800 gap-1 sm:gap-1.5 px-2 sm:px-3 py-2 rounded-full">
