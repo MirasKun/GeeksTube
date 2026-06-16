@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCommentsTC,
+  fetchMoreCommentsTC,
   postCommentTC,
 } from "../../store/thunks/spec/video/commentsThunks";
 import {
@@ -16,13 +17,16 @@ import CommentItem from "./CommentItem";
 
 const CommentsSection = ({ videoId, initialCommentCount }) => {
   const dispatch = useDispatch();
-  const { comments, loading, posting } = useSelector((s) => s.commentsSlice);
+  const { comments, loading, posting, loadingMore, nextPageToken } = useSelector(
+    (s) => s.commentsSlice,
+  );
   const { user } = useSelector((s) => s.authSlice);
 
   const [commentText, setCommentText] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
   const inputRef = useRef(null);
+  const loaderRef = useRef(null);
 
   useEffect(() => {
     if (videoId) {
@@ -30,6 +34,28 @@ const CommentsSection = ({ videoId, initialCommentCount }) => {
       dispatch(fetchCommentsTC(videoId));
     }
   }, [videoId, dispatch]);
+
+  useEffect(() => {
+    const node = loaderRef.current;
+    if (!node || !videoId) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && nextPageToken && !loadingMore) {
+          dispatch(fetchMoreCommentsTC({ videoId, pageToken: nextPageToken }));
+        }
+      },
+      {
+        root: null,
+        rootMargin: "200px",
+        threshold: 0,
+      },
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [dispatch, nextPageToken, loadingMore, videoId, comments.length]);
 
   const handleFocus = () => {
     if (!user) {
@@ -175,6 +201,18 @@ const CommentsSection = ({ videoId, initialCommentCount }) => {
           {comments.map((thread) => (
             <CommentItem key={thread.id} thread={thread} />
           ))}
+
+          <div ref={loaderRef} className="flex justify-center py-4">
+            {loadingMore && (
+              <div className="flex items-center gap-3 text-zinc-400 text-sm">
+                <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                <span>Загрузка еще комментариев...</span>
+              </div>
+            )}
+            {!loadingMore && !nextPageToken && comments.length > 0 && (
+              <span className="text-zinc-500 text-sm">Все комментарии загружены</span>
+            )}
+          </div>
         </div>
       )}
     </div>

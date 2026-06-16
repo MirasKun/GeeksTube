@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import VideoPlayer from "../../components/players/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import WatchVideoGrid from "../../components/videos/WatchVideoGrid";
 import { fetchVideoByIdTC } from "../../store/thunks/spec/video/fetchVideoById";
 import { Link } from "react-router-dom";
@@ -14,10 +14,12 @@ import { checkSubscriptionTC } from "../../store/thunks/interactions/checkSubscr
 import { toggleSubscriptionTC } from "../../store/thunks/interactions/toggleSubscription";
 import { addToWatchLaterTC } from "../../store/thunks/spec/watchLater/addToWatchLaterTC";
 import WatchLater from "../saved/WatchLater";
+import { fetchRecomendedVideosTC } from "../../store/thunks/general/fetchRecomended";
 
 const Watch = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loaderRef = useRef(null);
   const { videoId } = useParams();
   const { video } = useSelector((s) => s.videoByIdSlice);
   const { channel } = useSelector((state) => state.channelSlice);
@@ -28,6 +30,9 @@ const Watch = () => {
 
   const { currentRating, isSubscribed, subscriptionId } = useSelector(
     (state) => state.interactionsSlice,
+  );
+  const { videos, loading, error, nextPageToken } = useSelector(
+    (state) => state.recomendedSlice,
   );
 
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
@@ -52,6 +57,39 @@ const Watch = () => {
       dispatch(fetchVideoRatingTC(videoId));
     }
   }, [dispatch, videoId, token]);
+
+  useEffect(() => {
+      if (videos.length === 0) {
+        dispatch(fetchRecomendedVideosTC());
+      }
+    }, [dispatch, videos.length]);
+  
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && nextPageToken && !loading) {
+            dispatch(fetchRecomendedVideosTC(nextPageToken));
+          }
+        },
+        {
+          root: null,
+          rootMargin: "300px",
+          threshold: 0,
+        },
+      );
+
+      const loaderElement = loaderRef.current;
+
+    if (loaderElement) {
+      observer.observe(loaderElement);
+    }
+
+    return () => {
+      if (loaderElement) {
+        observer.unobserve(loaderElement);
+      }
+    };
+  }, [dispatch, nextPageToken, loading]);
 
   const videoTitle = video?.snippet?.title;
   const channelTitle = video?.snippet?.channelTitle;
@@ -221,6 +259,7 @@ const Watch = () => {
             <div className="grid grid-cols-1">
               <WatchVideoGrid />
             </div>
+            <div ref={loaderRef} className="h-10" />
           </div>
         </div>
       </div>
