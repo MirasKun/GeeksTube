@@ -102,17 +102,6 @@ const Watch = () => {
             <h2 className="mb-3 text-white">Рекомендации</h2>
 
             <div className="grid grid-cols-1">
-              {/* <div className="flex gap-3">
-                <div className="w-40 h-23 bg-zinc-800 rounded-lg" />
-                <div>
-                  <p className="text-sm text-white">Другое интересное видео</p>
-                  <p className="mt-1 text-xs text-gray-400">Канал</p>
-                  <div>
-                    <p className="text-xs text-gray-400">67 тыс. просмотров</p>
-                    <p className="text-xs text-gray-400">5 лет назад</p>
-                  </div>
-                </div>
-              </div> */}
               <WatchVideoGrid/>
             </div>
           </div>
