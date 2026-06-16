@@ -74,7 +74,7 @@ const Watch = () => {
                     <p className=" font-bold">Поделиться</p>
                   </button>
                 </div>
-                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full">
+                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full hover:bg-gray-500">
                   <button className="flex items-center gap-1 text-white">
                     <img src="/Watch/Watch_later_YouTube.svg" alt="Watch_Later" />
                     <p className="font-bold">Смотреть позже</p>

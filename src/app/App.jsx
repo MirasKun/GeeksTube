@@ -23,6 +23,9 @@ const App = () => {
   const location = useLocation();
   const mainRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const { pathname } = useLocation()
+
+  const showFilterBar = pathname === "/" || pathname === "/results";
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 1024);
@@ -60,13 +63,15 @@ const App = () => {
     }
   }, [location.pathname]);
 
+
+
   return (
     <div className="flex flex-col h-screen bg-[#0F0F0F] overflow-hidden font-sans">
       <YouTubeHeader />
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <Sidebar isOpen={isOpen} />
         <main className="flex-1 overflow-hidden flex flex-col text-white p-2 gap-4">
-            <FilterBar />
+            {showFilterBar && <FilterBar />}
           <div key={location.pathname} className="flex-1 overflow-y-auto pr-1">
             <Routes location={location}>
               <Route path="/" element={<HomePage />} />

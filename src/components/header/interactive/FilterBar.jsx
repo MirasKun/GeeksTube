@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FILTERS = [];
+const FILTERS = ["Все", "Музыка", "Видеоигры"];
 
 const FilterBar = () => {
   const [activeFilter, setActiveFilter] = useState("Все");

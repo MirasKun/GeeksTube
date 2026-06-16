@@ -172,7 +172,7 @@ const Watch = () => {
                     <p className="font-bold text-xs sm:text-sm hidden sm:block">Поделиться</p>
                   </button>
                 </div>
-                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full">
+                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full hover:bg-white/20 active:scale-97">
                   <button
                     onClick={() => dispatch(addToWatchLaterTC())}
                     className="flex items-center gap-1 text-white"
@@ -185,7 +185,7 @@ const Watch = () => {
                   <button className="flex items-center">
                     <img className="w-5 h-5 sm:w-7 sm:h-7" src="/Watch/Burger..._YouTube.svg" alt="Burger" />
                   </button>
-                </div>
+                </div> 
               </div>
             </div>
 
