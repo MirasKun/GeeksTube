@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import VideoPlayer from "../../components/players/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
@@ -13,11 +13,9 @@ import { rateVideoTC } from "../../store/thunks/interactions/rateVideo";
 import { checkSubscriptionTC } from "../../store/thunks/interactions/checkSubscription";
 import { toggleSubscriptionTC } from "../../store/thunks/interactions/toggleSubscription";
 import { addToWatchLaterTC } from "../../store/thunks/spec/watchLater/addToWatchLaterTC";
-import WatchLater from "../saved/WatchLater";
 import { fetchRecomendedVideosTC } from "../../store/thunks/general/fetchRecomended";
 
 const Watch = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const loaderRef = useRef(null);
   const { videoId } = useParams();
@@ -31,7 +29,7 @@ const Watch = () => {
   const { currentRating, isSubscribed, subscriptionId } = useSelector(
     (state) => state.interactionsSlice,
   );
-  const { videos, loading, error, nextPageToken } = useSelector(
+  const { videos, loading, nextPageToken } = useSelector(
     (state) => state.recomendedSlice,
   );
 

@@ -12,7 +12,7 @@ import LikedVideos from "../pages/saved/LikedVideos";
 import Shorts from "../pages/videos/shorts/Shorts";
 import Watch from "../pages/videos/Watch";
 import SearchResultsPage from "../pages/videos/search/SearchResultsPage";
-import { toggleSidebar, closeSidebar } from "../store/slices/spec/sidebarSlice";
+import { closeSidebar } from "../store/slices/spec/sidebarSlice";
 import ChannelPage from "../pages/channel/ChannelPage";
 import FilterBar from "../components/header/interactive/FilterBar";
 import WatchLater from "../pages/saved/WatchLater";
