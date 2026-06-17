@@ -21,9 +21,9 @@ const SearchResultsPage = () => {
   }, [query, dispatch]);
 
   return (
-    <div className="flex flex-col gap-3 max-w-4xl mx-auto py-4 min-h-screen px-4">
+    <div className="flex flex-col gap-3 max-w-4xl mx-auto py-4 min-h-screen px-3 sm:px-4">
       {/* Динамический h1 для SEO */}
-      <h1 className="text-xl font-bold text-white mb-2">
+      <h1 className="text-lg sm:text-xl font-bold text-white mb-2 break-words">
         Результаты поиска по запросу:{" "}
         <span className="text-red-500">«{query}»</span>
       </h1>

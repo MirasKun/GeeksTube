@@ -19,7 +19,6 @@ const SearchBarInner = ({ defaultQuery = "" }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
-
   useEffect(() => {
     if (!isFocused || !searchQuery.trim()) {
       const t = setTimeout(() => setSuggestions([]), 0);
@@ -138,20 +137,20 @@ const SearchBarInner = ({ defaultQuery = "" }) => {
     isFocused && searchQuery.trim() && suggestions.length > 0;
 
   return (
-    <div className="relative flex items-center gap-3 w-full max-w-[600px] mx-4">
+    <div className="relative flex items-center gap-1 sm:gap-3 flex-1 min-w-0 max-w-[600px] mx-1 sm:mx-4">
       <div className="relative flex w-full">
         <div
-          className={`flex items-center w-full border px-4 h-10 gap-1.5 transition-all ${
+          className={`flex items-center w-full border px-2 sm:px-4 h-8 sm:h-10 gap-1 sm:gap-1.5 transition-all ${
             showDropdown
               ? "border-[#FF0033] rounded-t-2xl rounded-b-none"
               : "border-gray-600 rounded-full"
           }`}
         >
-          <button onClick={handleMagnifierClick} className="shrink-0">
+          <button onClick={handleMagnifierClick} className="shrink-0 hidden sm:flex">
             {loading ? (
-              <div className="w-4 h-4 border-2 border-gray-500 border-t-white rounded-full animate-spin" />
+              <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-gray-500 border-t-white rounded-full animate-spin" />
             ) : (
-              <img src="/header/Search.svg" alt="search" className="w-5 h-5" />
+              <img src="/header/Search.svg" alt="search" className="w-4 h-4 sm:w-5 sm:h-5" />
             )}
           </button>
 
@@ -163,14 +162,14 @@ const SearchBarInner = ({ defaultQuery = "" }) => {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setTimeout(() => setIsFocused(false), 150)}
             onKeyDown={handleKeyDown}
-            placeholder="Введите запрос"
-            className="w-full bg-transparent text-white outline-none ml-2"
+            placeholder="Поиск"
+            className="w-full bg-transparent text-white outline-none ml-1 sm:ml-2 text-xs sm:text-sm"
           />
 
           {searchQuery && (
             <button
               onMouseDown={handleClear}
-              className="text-gray-400 hover:text-white text-base shrink-0"
+              className="text-gray-400 hover:text-white text-xs sm:text-base shrink-0"
             >
               ✕
             </button>
@@ -178,7 +177,7 @@ const SearchBarInner = ({ defaultQuery = "" }) => {
         </div>
 
         {showDropdown && (
-          <ul className="absolute top-10 left-0 right-0 bg-[#212121] border border-[#FF0033] border-t-0 rounded-b-2xl z-50 overflow-hidden shadow-2xl">
+          <ul className="absolute top-8 sm:top-10 left-0 right-0 bg-[#212121] border border-[#FF0033] border-t-0 rounded-b-2xl z-50 overflow-hidden shadow-2xl">
             {suggestions.slice(0, 10).map((item) => {
               const title = item.snippet?.title ?? "";
               const thumb = item.snippet?.thumbnails?.default?.url;
@@ -222,14 +221,14 @@ const SearchBarInner = ({ defaultQuery = "" }) => {
 
       <button
         onClick={handleVoiceRecognition}
-        className={`flex items-center justify-center w-10 h-10 shrink-0 rounded-full transition-all ${
+        className={`hidden sm:flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-full transition-all ${
           isListening
             ? "bg-[#FF0033] animate-pulse"
             : "bg-[#222222] hover:bg-[#303030]"
         }`}
         title="Голосовой поиск"
       >
-        <img src="/header/Voice.svg" alt="voice" className="w-5 h-5" />
+        <img src="/header/Voice.svg" alt="voice" className="w-4 h-4 sm:w-5 sm:h-5" />
       </button>
     </div>
   );

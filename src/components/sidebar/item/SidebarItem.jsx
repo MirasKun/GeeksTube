@@ -12,7 +12,7 @@ const SidebarItem = ({ label, iconName, isOpen, to, end = false }) => {
             : "w-12 h-12 justify-center mx-auto"
         } ${
           isActive
-            ? "bg-red-600/15 text-white font-medium"
+            ? "bg-white/15 text-white font-medium"
             : "text-zinc-300 hover:bg-white/5 font-normal"
         }`
       }

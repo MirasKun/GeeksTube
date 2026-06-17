@@ -31,7 +31,7 @@ const ChannelTabs = ({ onSearch }) => {
 
   return (
     <div className="top-0 z-20 border-b border-white/10 bg-[#0f0f0f] px-4 md:px-8">
-      <div className="flex items-center gap-6 overflow-x-auto">
+      <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id;
 

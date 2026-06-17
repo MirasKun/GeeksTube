@@ -14,11 +14,11 @@ const SearchResultCard = ({ video }) => {
 
   return (
     <Link to={`/watch/${videoId}`} className="block">
-      <div className="flex gap-4 cursor-pointer hover:bg-[#1a1a1a] rounded-xl p-2 transition-colors">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 cursor-pointer hover:bg-[#1a1a1a] rounded-xl p-2 transition-colors">
         <img
           src={thumbnail}
           alt={title}
-          className="w-64 h-36 object-cover rounded-xl shrink-0"
+          className="w-full sm:w-64 sm:h-36 object-cover rounded-xl shrink-0 aspect-video sm:aspect-auto"
         />
         <div className="flex flex-col gap-1 pt-1">
           <h3 className="text-white font-medium text-base line-clamp-2">

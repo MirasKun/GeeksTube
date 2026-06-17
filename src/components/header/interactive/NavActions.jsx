@@ -25,22 +25,22 @@ const NavActions = () => {
   }, []);
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-0 sm:gap-1">
       <a
         href="https://studio.youtube.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="p-2 rounded-full hover:bg-gray-700 block shrink-0"
+        className="p-1.5 sm:p-2 rounded-full hover:bg-gray-700 shrink-0"
         title="Творческая студия YouTube"
       >
-        <img src="/header/Create.svg" alt="Studio" />
+        <img src="/header/Create.svg" alt="Studio" className="w-5 h-5 sm:w-6 sm:h-6" />
       </a>
 
-      <button className="p-2 rounded-full hover:bg-gray-700">
-        <img src="/header/Bell.svg" alt="Bell" />
+      <button className="p-1.5 sm:p-2 rounded-full hover:bg-gray-700 shrink-0">
+        <img src="/header/Bell.svg" alt="Bell" className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
-      <button className="p-2 rounded-full hover:bg-gray-700">
-        <img src="/header/Settings.svg" alt="Settings" />
+      <button className="p-1.5 sm:p-2 rounded-full hover:bg-gray-700 shrink-0">
+        <img src="/header/Settings.svg" alt="Settings" className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       {authLoading ? (
@@ -51,7 +51,7 @@ const NavActions = () => {
         <div
           onContextMenu={handleRightClick}
           title="ЛКМ: статус / ПКМ: выйти"
-          className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold cursor-pointer uppercase select-none hover:opacity-90 overflow-hidden"
+          className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold cursor-pointer uppercase select-none hover:opacity-90 overflow-hidden shrink-0"
         >
           {user.photoURL ? (
             <img
@@ -73,7 +73,7 @@ const NavActions = () => {
           type="primary"
           onClick={handleLogin}
           style={{ backgroundColor: "#FF0033" }}
-          className="border-none rounded-full"
+          className="border-none rounded-full text-xs sm:text-sm px-2 sm:px-4"
         >
           Войти
         </Button>

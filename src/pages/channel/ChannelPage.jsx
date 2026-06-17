@@ -213,7 +213,7 @@ const ChannelPage = () => {
             </div>
 
             {videosForGrid.length > 0 ? (
-              <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 {videosForGrid.map((video) => (
                   <ChannelVideoCard key={video.id} video={video} />
                 ))}
@@ -245,7 +245,7 @@ const ChannelPage = () => {
             </h2>
             {!searchQuery && <p className="mb-4 text-sm text-[#aaaaaa]"></p>}
             {searchResults.length > 0 && (
-              <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 {searchResults.map((video) => (
                   <ChannelVideoCard key={video.id} video={video} />
                 ))}

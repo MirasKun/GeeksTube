@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import VideoPlayer from "../../components/players/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import WatchVideoGrid from "../../components/videos/WatchVideoGrid";
 import { fetchVideoByIdTC } from "../../store/thunks/spec/video/fetchVideoById";
 import { Link } from "react-router-dom";
@@ -12,14 +12,25 @@ import { fetchVideoRatingTC } from "../../store/thunks/interactions/fetchVideoRa
 import { rateVideoTC } from "../../store/thunks/interactions/rateVideo";
 import { checkSubscriptionTC } from "../../store/thunks/interactions/checkSubscription";
 import { toggleSubscriptionTC } from "../../store/thunks/interactions/toggleSubscription";
+import { addToWatchLaterTC } from "../../store/thunks/spec/watchLater/addToWatchLaterTC";
+import { fetchRecomendedVideosTC } from "../../store/thunks/general/fetchRecomended";
+
 const Watch = () => {
   const dispatch = useDispatch();
+  const loaderRef = useRef(null);
   const { videoId } = useParams();
   const { video } = useSelector((s) => s.videoByIdSlice);
   const { channel } = useSelector((state) => state.channelSlice);
 
+  const watchLaterVideos = useSelector((state) => state.watchLater.videos);
+
+  console.log("Watch Later:", watchLaterVideos);
+
   const { currentRating, isSubscribed, subscriptionId } = useSelector(
     (state) => state.interactionsSlice,
+  );
+  const { videos, loading, nextPageToken } = useSelector(
+    (state) => state.recomendedSlice,
   );
 
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
@@ -44,6 +55,39 @@ const Watch = () => {
       dispatch(fetchVideoRatingTC(videoId));
     }
   }, [dispatch, videoId, token]);
+
+  useEffect(() => {
+      if (videos.length === 0) {
+        dispatch(fetchRecomendedVideosTC());
+      }
+    }, [dispatch, videos.length]);
+  
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && nextPageToken && !loading) {
+            dispatch(fetchRecomendedVideosTC(nextPageToken));
+          }
+        },
+        {
+          root: null,
+          rootMargin: "300px",
+          threshold: 0,
+        },
+      );
+
+      const loaderElement = loaderRef.current;
+
+    if (loaderElement) {
+      observer.observe(loaderElement);
+    }
+
+    return () => {
+      if (loaderElement) {
+        observer.unobserve(loaderElement);
+      }
+    };
+  }, [dispatch, nextPageToken, loading]);
 
   const videoTitle = video?.snippet?.title;
   const channelTitle = video?.snippet?.channelTitle;
@@ -80,22 +124,22 @@ const Watch = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-full">
       <h1 className="sr-only">Просмотр видео {videoTitle} - GeeksTube</h1>
-      <div className="w-full max-w-450 px-4 py-6">
-        <div className="flex gap-6">
-          <div className="w-960">
+      <div className="w-full">
+        <div className="flex flex-col xl:flex-row gap-4 xl:gap-6">
+          <div className="flex-1 min-w-0">
             <VideoPlayer videoId={videoId} />
 
-            <h1 className="mt-4 text-xl text-white">{videoTitle}</h1>
-            <div className="mt-3 flex items-center gap-4 justify-between">
-              <div className="flex items-center gap-4">
+            <h1 className="mt-4 text-lg sm:text-xl text-white">{videoTitle}</h1>
+            <div className="mt-3 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 sm:justify-between">
+              <div className="flex items-center gap-3 flex-wrap">
                 <Link
                   to={`/channel/${video?.snippet?.channelId}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="text-gray-400 text-sm mt-1 hover:text-white transition-colors flex gap-3 items-center"
+                  className="text-gray-400 text-sm hover:text-white transition-colors flex gap-3 items-center"
                 >
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center ">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center">
                     <img
                       src={avatarUrl}
                       alt={videoTitle}
@@ -103,17 +147,16 @@ const Watch = () => {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-white">{channelTitle}</p>
-                    <p>
+                    <p className="text-white text-sm sm:text-base">{channelTitle}</p>
+                    <p className="text-xs sm:text-sm">
                       {formatSubscribers(channel?.statistics?.subscriberCount)}
                     </p>
                   </div>
                 </Link>
 
-                {}
                 <button
                   onClick={handleSubscribe}
-                  className={`px-4 py-2 rounded-full font-medium transition-colors ${
+                  className={`px-3 sm:px-4 py-2 rounded-full font-medium text-sm transition-colors ${
                     isSubscribed
                       ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
                       : "bg-white text-black hover:bg-zinc-200"
@@ -123,23 +166,22 @@ const Watch = () => {
                 </button>
               </div>
 
-              <div className="flex items-center gap-2">
-                {}
-                <div className="flex items-center bg-zinc-800 gap-1.5 px-5 py-2 rounded-full">
+              <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
+                <div className="flex items-center bg-zinc-800 gap-1 sm:gap-1.5 px-3 sm:px-5 py-2 rounded-full">
                   <button
                     onClick={handleLike}
-                    className={`flex items-center gap-2 transition-colors ${
+                    className={`flex items-center gap-1 sm:gap-2 transition-colors ${
                       currentRating === "like"
                         ? "text-blue-400"
                         : "text-white hover:text-gray-300"
                     }`}
                   >
                     <img
-                      className={`w-7 h-7 ${currentRating === "like" ? "brightness-150" : ""}`}
+                      className={`w-5 h-5 sm:w-7 sm:h-7 ${currentRating === "like" ? "brightness-150" : ""}`}
                       src="/Watch/Like_YouTube.svg"
                       alt="Like"
                     />
-                    <p className="font-bold text-[15px]">{displayLikeCount}</p>
+                    <p className="font-bold text-xs sm:text-[15px]">{displayLikeCount}</p>
                   </button>
 
                   <div className="w-px h-5 bg-zinc-500" />
@@ -153,46 +195,41 @@ const Watch = () => {
                     }`}
                   >
                     <img
-                      className={`w-7 h-7 ${currentRating === "dislike" ? "brightness-150" : ""}`}
+                      className={`w-5 h-5 sm:w-7 sm:h-7 ${currentRating === "dislike" ? "brightness-150" : ""}`}
                       src="/Watch/Dislike_YouTube.svg"
                       alt="dislike"
                     />
                   </button>
                 </div>
 
-                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full">
+                <div className="flex items-center bg-zinc-800 gap-1 px-2 sm:px-3 py-2 sm:py-2.5 rounded-full">
                   <button className="flex items-center gap-1 text-white">
-                    <img
-                      className="w-6 h-6"
-                      src="/Watch/Share_YouTube.svg"
-                      alt=""
-                    />
-                    <p className=" font-bold">Поделиться</p>
+                    <img className="w-5 h-5 sm:w-6 sm:h-6" src="/Watch/Share_YouTube.svg" alt="" />
+                    <p className="font-bold text-xs sm:text-sm hidden sm:block">Поделиться</p>
                   </button>
                 </div>
-                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full">
-                  <button className="flex items-center gap-1 text-white">
-                    <img src="/Watch/Save_YouTube.svg" alt="Save" />
-                    <p className=" font-bold">Сохранить</p>
+                <div className="flex items-center bg-zinc-800 gap-1 px-3 py-2.5 rounded-full hover:bg-white/20 active:scale-97">
+                  <button
+                    onClick={() => dispatch(addToWatchLaterTC())}
+                    className="flex items-center gap-1 text-white"
+                  >
+                    <img src="/Watch/Watch_later_YouTube.svg" alt="Save" />
+                    <p className=" font-bold">Смотреть позже</p>
                   </button>
                 </div>
-                <div className="flex items-center bg-zinc-800 gap-1.5 px-3 py-2 rounded-full">
-                  <button className="flex items-center ">
-                    <img
-                      className="w-7 h-7"
-                      src="/Watch/Burger..._YouTube.svg"
-                      alt="Burger"
-                    />
+                <div className="flex items-center bg-zinc-800 gap-1 sm:gap-1.5 px-2 sm:px-3 py-2 rounded-full">
+                  <button className="flex items-center">
+                    <img className="w-5 h-5 sm:w-7 sm:h-7" src="/Watch/Burger..._YouTube.svg" alt="Burger" />
                   </button>
-                </div>
+                </div> 
               </div>
             </div>
 
-            <div className="mt-4 rounded-xl bg-zinc-900 p-4 text-sm text-gray-200">
-              <p>{viewCount} просмотров</p>
+            <div className="mt-4 rounded-xl bg-zinc-900 p-3 sm:p-4 text-sm text-gray-200">
+              <p className="text-xs sm:text-sm">{viewCount} просмотров</p>
 
               {description && (
-                <p className="mt-2 text-sm text-[#ffffff]">
+                <p className="mt-2 text-xs sm:text-sm text-[#ffffff]">
                   {shortDescription}
                   {description.length > 80 && !descriptionExpanded && "..."}
                   {description.length > 80 && (
@@ -214,12 +251,13 @@ const Watch = () => {
             />
           </div>
 
-          <div className="w-400">
-            <h2 className="mb-3 text-white">Рекомендации</h2>
+          <div className="w-full xl:w-[400px] shrink-0">
+            <h2 className="mb-3 text-white text-sm sm:text-base">Рекомендации</h2>
 
             <div className="grid grid-cols-1">
               <WatchVideoGrid />
             </div>
+            <div ref={loaderRef} className="h-10" />
           </div>
         </div>
       </div>

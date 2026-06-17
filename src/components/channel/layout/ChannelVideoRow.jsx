@@ -33,7 +33,7 @@ const ChannelVideoRow = ({
           <button
             type="button"
             onClick={() => scroll(1)}
-            className="absolute right-0 top-24 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#272727] text-white shadow-lg hover:bg-[#3f3f3f]"
+            className="absolute right-0 top-20 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#272727] text-white shadow-lg hover:bg-[#3f3f3f]"
             aria-label="Прокрутить вправо"
           >
             ›
@@ -42,7 +42,7 @@ const ChannelVideoRow = ({
 
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto pb-2"
+          className="flex gap-3 sm:gap-4 overflow-x-auto pb-2"
           style={{ scrollbarWidth: "none" }}
         >
           {loading && videos.length === 0

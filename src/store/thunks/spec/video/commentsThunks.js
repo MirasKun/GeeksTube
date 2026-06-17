@@ -10,7 +10,7 @@ export const fetchCommentsTC = createAsyncThunk(
         params: {
           part: "snippet,replies",
           videoId: videoId,
-          maxResults: 50,
+          maxResults: 20,
           textFormat: "plainText",
         },
       });
@@ -109,7 +109,7 @@ export const fetchMoreCommentsTC = createAsyncThunk(
           part: "snippet,replies",
           videoId: videoId,
           maxResults: 20,
-          pageToken: pageToken,
+          pageToken,
           textFormat: "plainText",
         },
       });
@@ -120,5 +120,4 @@ export const fetchMoreCommentsTC = createAsyncThunk(
     }
   }
 );
-
 

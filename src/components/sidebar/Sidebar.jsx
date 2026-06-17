@@ -13,7 +13,7 @@ const SECONDARY_TABS = [
     name: "Смотреть позже",
     label: "Смотреть позже",
     icon: "WatchLater",
-    path: "/watch/:videoId",
+    path: "/watch-later",
   },
   {
     name: "Понравившиеся",

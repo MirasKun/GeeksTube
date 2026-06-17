@@ -22,7 +22,7 @@ const VideoCard = memo(({ video }) => {
   }, [video]);
   if (!video) return null;
   return (
-    <div className="cursor-pointer transition-colors duration-300 sm:p-2 sm:hover:bg-zinc-800 rounded-xl flex flex-col justify-between">
+    <div className="cursor-pointer transition-colors duration-300 sm:p-2 sm:hover:bg-zinc-700 rounded-xl flex flex-col justify-between scale-90">
       {}
       <Link
         to={`/watch/${video.id}`}
@@ -35,7 +35,7 @@ const VideoCard = memo(({ video }) => {
           className="w-full rounded-lg object-cover aspect-video"
           loading="lazy"
         />
-        <h3 className="mt-2 text-white font-medium text-sm line-clamp-2 group-hover:text-red-500 transition-colors">
+        <h3 className="mt-2 text-white font-medium text-sm line-clamp-2 group-hover:text-white transition-colors">
           {title}
         </h3>
       </Link>

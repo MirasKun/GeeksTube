@@ -16,12 +16,12 @@ const SearchResultCard = ({ video }) => {
   const description = snippet?.description;
 
   return (
-    <div className="flex gap-4 rounded-xl p-2 transition-colors hover:bg-[#1a1a1a]">
+    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 rounded-xl p-2 transition-colors hover:bg-[#1a1a1a]">
       <Link to={`/watch/${videoId}`} className="shrink-0">
         <img
           src={thumbnail}
           alt={title}
-          className="h-36 w-64 rounded-xl object-cover"
+          className="w-full sm:w-64 sm:h-36 rounded-xl object-cover aspect-video sm:aspect-auto"
         />
       </Link>
       <div className="flex flex-col gap-1 pt-1">

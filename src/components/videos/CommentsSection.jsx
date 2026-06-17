@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCommentsTC,
+  fetchMoreCommentsTC,
   postCommentTC,
 } from "../../store/thunks/spec/video/commentsThunks";
 import {
@@ -16,13 +17,16 @@ import CommentItem from "./CommentItem";
 
 const CommentsSection = ({ videoId, initialCommentCount }) => {
   const dispatch = useDispatch();
-  const { comments, loading, posting } = useSelector((s) => s.commentsSlice);
+  const { comments, loading, posting, loadingMore, nextPageToken } = useSelector(
+    (s) => s.commentsSlice,
+  );
   const { user } = useSelector((s) => s.authSlice);
 
   const [commentText, setCommentText] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
   const inputRef = useRef(null);
+  const loaderRef = useRef(null);
 
   useEffect(() => {
     if (videoId) {
@@ -30,6 +34,28 @@ const CommentsSection = ({ videoId, initialCommentCount }) => {
       dispatch(fetchCommentsTC(videoId));
     }
   }, [videoId, dispatch]);
+
+  useEffect(() => {
+    const node = loaderRef.current;
+    if (!node || !videoId) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && nextPageToken && !loadingMore) {
+          dispatch(fetchMoreCommentsTC({ videoId, pageToken: nextPageToken }));
+        }
+      },
+      {
+        root: null,
+        rootMargin: "200px",
+        threshold: 0,
+      },
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [dispatch, nextPageToken, loadingMore, videoId, comments.length]);
 
   const handleFocus = () => {
     if (!user) {
@@ -97,15 +123,15 @@ const CommentsSection = ({ videoId, initialCommentCount }) => {
   const displayCount = comments.length > 0 ? comments.length : (initialCommentCount || 0);
 
   return (
-    <div className="mt-6 text-white border-t border-zinc-800 pt-6">
-      <div className="flex items-center gap-8 mb-6">
-        <h2 className="text-xl font-bold font-sans">
+    <div className="mt-4 sm:mt-6 text-white border-t border-zinc-800 pt-4 sm:pt-6">
+      <div className="flex items-center gap-8 mb-4 sm:mb-6">
+        <h2 className="text-lg sm:text-xl font-bold font-sans">
           {formatCount(displayCount)} комментариев
         </h2>
       </div>
 
-      <div className="flex gap-4 mb-8">
-        <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
+      <div className="flex gap-3 sm:gap-4 mb-6 sm:mb-8">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
           {user && user.photoURL ? (
             <img
               src={user.photoURL}
@@ -131,7 +157,7 @@ const CommentsSection = ({ videoId, initialCommentCount }) => {
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               onFocus={handleFocus}
-              className="w-full bg-transparent text-white border-b border-zinc-700 py-2 focus:outline-none focus:border-white transition-colors text-sm"
+              className="w-full bg-transparent text-white border-b border-zinc-700 py-2 focus:outline-none focus:border-white transition-colors text-xs sm:text-sm"
             />
           </div>
 
@@ -175,6 +201,18 @@ const CommentsSection = ({ videoId, initialCommentCount }) => {
           {comments.map((thread) => (
             <CommentItem key={thread.id} thread={thread} />
           ))}
+
+          <div ref={loaderRef} className="flex justify-center py-4">
+            {loadingMore && (
+              <div className="flex items-center gap-3 text-zinc-400 text-sm">
+                <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                <span>Загрузка еще комментариев...</span>
+              </div>
+            )}
+            {!loadingMore && !nextPageToken && comments.length > 0 && (
+              <span className="text-zinc-500 text-sm">Все комментарии загружены</span>
+            )}
+          </div>
         </div>
       )}
     </div>
