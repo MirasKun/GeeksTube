@@ -38,7 +38,7 @@ const Sidebar = ({ isOpen }) => {
     <aside
       className={`h-full bg-[#0f0f0f] text-white flex flex-col font-sans select-none overflow-y-auto transition-all duration-300 ease-in-out ${
         isOpen ? "w-60 px-3" : "w-20 px-1"
-      } py-4 [ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
+      } py-4 [ms-overflow-style:none] [scrollbar-:none] [&::-webkit-scrollbar]:hidden`}
     >
       <div className="flex flex-col gap-1 mb-4">
         {MAIN_TABS.map((tab) => (
