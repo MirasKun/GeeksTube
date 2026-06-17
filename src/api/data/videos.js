@@ -1,4 +1,4 @@
-import { instance } from "./instance.js";
+import { instance } from "../instances/instance.js";
 
 
 export const getVideosByCategory = (categoryId, pageToken = "") => {
@@ -13,4 +13,3 @@ export const getVideosByCategory = (categoryId, pageToken = "") => {
     },
   });
 };
-

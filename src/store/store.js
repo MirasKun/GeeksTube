@@ -4,6 +4,7 @@ import authSlice from "./slices/authSlice";
 import searchQuerySlice from "./slices/spec/searchQuerySlice";
 import sidebarSlice from "./slices/spec/sidebarSlice";
 import shortsSlice from "./slices/general/shortsSlice";
+import categoryVideosSlice from "./slices/general/categoryVideosSlice";
 import videoByIdSlice from "./slices/spec/videoByIdSlice";
 import channelSlice from "./slices/channelSlice";
 import commentsSlice from "./slices/spec/commentsSlice";
@@ -17,6 +18,7 @@ export const store = configureStore({
     searchQuerySlice,
     sidebarSlice,
     shortsSlice,
+    categoryVideosSlice,
     videoByIdSlice,
     channelSlice,
     commentsSlice,
@@ -25,4 +27,3 @@ export const store = configureStore({
     watchLaterReducer,
   },
 });
-
