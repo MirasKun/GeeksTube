@@ -1,23 +1,30 @@
-import { useState } from "react";
-
-const FILTERS = ["Все", "Музыка", "Видеоигры"];
+import { useDispatch, useSelector } from "react-redux";
+import { VIDEO_CATEGORY_FILTERS } from "../../../constants/videoCategories";
+import { setActiveCategory } from "../../../store/slices/general/categoryVideosSlice";
 
 const FilterBar = () => {
-  const [activeFilter, setActiveFilter] = useState("Все");
+  const dispatch = useDispatch();
+  const activeCategory = useSelector(
+    (state) => state.categoryVideosSlice.activeCategory,
+  );
+
+  const handleCategoryClick = (categoryKey) => {
+    dispatch(setActiveCategory(categoryKey));
+  };
 
   return (
       <div className="flex bg-[#0f0f0f] py-1 gap-3 overflow-x-auto [ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {FILTERS.map((filter) => (
+          {VIDEO_CATEGORY_FILTERS.map((filter) => (
             <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
+              key={filter.key}
+              onClick={() => handleCategoryClick(filter.key)}
               className={`px-3 py-1 rounded-lg transition-colors ${
-                activeFilter === filter
+                activeCategory === filter.key
                   ? "bg-white text-black"
                   : "bg-[#C4E4FF14] text-white hover:bg-gray-600"
               }`}
             >
-              {filter}
+              {filter.label}
             </button>
           ))}
       </div>

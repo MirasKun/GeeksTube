@@ -4,6 +4,7 @@ import { fetchVideoRatingTC } from "../thunks/interactions/fetchVideoRating";
 import { rateVideoTC } from "../thunks/interactions/rateVideo";
 import { checkSubscriptionTC } from "../thunks/interactions/checkSubscription";
 import { toggleSubscriptionTC } from "../thunks/interactions/toggleSubscription";
+import { fetchSubscribedChannelsTC } from "../thunks/interactions/fetchSubscribedChannels";
 
 const initialState = {
   currentRating: "none",
@@ -13,16 +14,20 @@ const initialState = {
 
   likedVideos: [],
   nextPageToken: null,
+  subscribedChannels: [],
+  subscribedChannelsNextPageToken: null,
 
   loading: {
     likedVideos: false,
     rating: false,
     subscription: false,
+    subscribedChannels: false,
   },
   errors: {
     likedVideos: null,
     rating: null,
     subscription: null,
+    subscribedChannels: null,
   },
 };
 
@@ -117,6 +122,21 @@ const interactionsSlice = createSlice({
         state.loading.likedVideos = false;
         state.errors.likedVideos =
           action.payload || "Не удалось загрузить понравившиеся видео";
+      })
+
+      .addCase(fetchSubscribedChannelsTC.pending, (state) => {
+        state.loading.subscribedChannels = true;
+        state.errors.subscribedChannels = null;
+      })
+      .addCase(fetchSubscribedChannelsTC.fulfilled, (state, action) => {
+        state.loading.subscribedChannels = false;
+        state.subscribedChannels = action.payload.channels;
+        state.subscribedChannelsNextPageToken = action.payload.nextPageToken;
+      })
+      .addCase(fetchSubscribedChannelsTC.rejected, (state, action) => {
+        state.loading.subscribedChannels = false;
+        state.errors.subscribedChannels =
+          action.payload || "Не удалось загрузить подписки";
       });
   },
 });
